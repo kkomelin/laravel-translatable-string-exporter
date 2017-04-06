@@ -15,4 +15,4 @@ Please note, the project is in its early development stage, so it can have issue
 
 ## License & Copyright
 
-MIT, © Konstantin Komelin
+MIT, (c) 2017 Konstantin Komelin
