@@ -5,9 +5,23 @@ Translatable String Extractor is aimed to collect all translatable strings of an
 
 Please note, the project is in its early development stage, so it can have issues which we will definitely address with your help ;)
 
+## Installation
+
+1) Add kkomelin/laravel-translatable-string-extractor to your project:
+
+```bash
+composer require kkomelin/laravel-translatable-string-extractor
+```
+
+2) Add the `ExtractorServiceProvider` to the providers array in config/app.php:
+
+```
+KKomelin\TranslatableStringExtractor\Providers\ExtractorServiceProvider::class,
+```
+
 ## Roadmap
 
-- [ ] Extract translatable strings
+- [ ] Extract translatable strings and save them to a language file
 - [ ] Support different translation function names
 - [ ] Preserve existing translations
 - [ ] An option to override existing translations
