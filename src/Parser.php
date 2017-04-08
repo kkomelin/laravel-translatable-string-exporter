@@ -19,7 +19,7 @@ class Parser
      *
      * @var string
      */
-    protected $pattern = '/([FUNCTIONS])\([\'"](.+)[\'"][\),]/';
+    protected $pattern = '/([FUNCTIONS])\([\'"](.+)[\'"][\),]/U';
 
 
     /**
