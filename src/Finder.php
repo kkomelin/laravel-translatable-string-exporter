@@ -46,12 +46,14 @@ class Finder
             $item = $path . DIRECTORY_SEPARATOR . $item;
         });
 
-        $pattern_string = implode('|', $this->patterns);
-
         $finder = new \Symfony\Component\Finder\Finder();
 
-        return $finder->in($directories)
-            ->name($pattern_string)
-            ->files();
+        $finder = $finder->in($directories);
+
+        foreach ($this->patterns as $pattern) {
+            $finder->name($pattern);
+        }
+
+        return $finder->files();
     }
 }
