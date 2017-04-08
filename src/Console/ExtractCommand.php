@@ -48,7 +48,9 @@ class ExtractCommand extends Command {
     {
         $language = $this->argument('lang');
 
-        $this->extractor->extract($language);
+        $strings = $this->extractor->extract($language);
+
+        dd($strings);
 
         $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
     }

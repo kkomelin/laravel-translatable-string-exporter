@@ -6,12 +6,13 @@ use Illuminate\Support\ServiceProvider;
 use KKomelin\TranslatableStringExtractor\Console\ExtractCommand;
 
 class ExtractorServiceProvider extends ServiceProvider {
+
     /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
      */
-    protected $defer = false;
+    protected $defer = true;
 
     /**
      * Register the service provider.
