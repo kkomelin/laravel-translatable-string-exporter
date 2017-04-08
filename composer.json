@@ -1,0 +1,29 @@
+{
+  "name": "kkomelin/laravel-translatable-string-extractor",
+  "description": "Translatable String Extractor for Laravel > 5.4",
+  "keywords": ["laravel", "translations", "translator"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Konstantin Komelin",
+      "email": "konstantin.komelin@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "5.4.x",
+    "illuminate/translation": "5.4.x",
+    "symfony/finder": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "KKomelin\\TranslatableStringExtractor\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
+  },
+  "minimum-stability": "stable"
+}
