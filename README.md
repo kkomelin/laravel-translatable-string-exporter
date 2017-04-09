@@ -19,6 +19,13 @@ composer require kkomelin/laravel-translatable-string-exporter
 KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
 ```
 
+## Usage
+
+```
+php artisan translatable:export <lang>
+```
+Where `<lang>` is a language code, for example "es".
+
 ## Roadmap
 
 - [x] Extract translatable strings and save them to a language file
