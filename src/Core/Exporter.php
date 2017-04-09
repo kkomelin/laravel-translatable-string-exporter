@@ -9,7 +9,7 @@ class Exporter
      *
      * @var array
      */
-    protected $directory = 'resource/lang';
+    protected $directory = 'resources/lang';
 
     /**
      * Extractor object.
