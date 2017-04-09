@@ -1,4 +1,4 @@
-# Translatable String Extractor for Laravel
+# Translatable String Exporter for Laravel
 As we know, Laravel 5.4 has introduced a "new" way of string translation.
 Now you can use `__('Translate me')` function and JSON files to translate strings.
 Translatable String Exporter is aimed to collect all translatable strings of an application and create corresponding translation files in JSON format to simplify the process of translation.
