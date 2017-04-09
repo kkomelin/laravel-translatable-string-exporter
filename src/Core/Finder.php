@@ -1,6 +1,6 @@
 <?php
 
-namespace KKomelin\TranslatableStringExtractor;
+namespace KKomelin\TranslatableStringExporter\Core;
 
 class Finder
 {

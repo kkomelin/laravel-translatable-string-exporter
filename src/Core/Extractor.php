@@ -1,6 +1,6 @@
 <?php
 
-namespace KKomelin\TranslatableStringExtractor;
+namespace KKomelin\TranslatableStringExporter\Core;
 
 class Extractor
 {
@@ -14,11 +14,9 @@ class Extractor
     }
 
     /**
-     * Extract tanslatable strings from the project files and record them to the JSON language file.
-     *
-     * @param $language
+     * Extract translatable strings from the project files.
      */
-    public function extract($language) {
+    public function extract() {
 
         $strings = [];
 
