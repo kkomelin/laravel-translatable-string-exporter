@@ -21,7 +21,7 @@ KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
 
 ## Roadmap
 
-- [ ] Extract translatable strings and save them to a language file
+- [x] Extract translatable strings and save them to a language file
 - [ ] Support different translation function names
 - [ ] Preserve existing translations
 - [ ] An option to override existing translations

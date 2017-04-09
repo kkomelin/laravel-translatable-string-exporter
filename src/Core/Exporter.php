@@ -66,7 +66,7 @@ class Exporter
             $result[$string] = $string;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_PRETTY_PRINT);
     }
 
     /**
