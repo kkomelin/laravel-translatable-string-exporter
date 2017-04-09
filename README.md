@@ -22,9 +22,7 @@ KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
 ## Roadmap
 
 - [x] Extract translatable strings and save them to a language file
-- [ ] Support different translation function names
 - [ ] Preserve existing translations
-- [ ] An option to override existing translations
 - [ ] Automated tests
 
 ## License & Copyright
