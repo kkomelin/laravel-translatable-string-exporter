@@ -32,6 +32,7 @@ The command with the "es" parameter will create es.json file in the `resources/l
 
 - [x] Extract translatable strings and save them to a language file
 - [x] Preserve existing translations
+- [ ] Refactor Exporter class
 - [ ] Automated tests
 
 ## License & Copyright
