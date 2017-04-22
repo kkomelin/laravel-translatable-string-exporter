@@ -26,12 +26,12 @@ php artisan translatable:export <lang>
 ```
 Where `<lang>` is a language code, for example "es".
 
-The command with the "es" parameter will create es.json file in the resources/lang folder of your project.
+The command with the "es" parameter will create es.json file in the `resources/lang` folder of your project.
 
 ## Roadmap
 
 - [x] Extract translatable strings and save them to a language file
-- [ ] Preserve existing translations
+- [x] Preserve existing translations
 - [ ] Automated tests
 
 ## License & Copyright

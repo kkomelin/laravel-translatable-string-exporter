@@ -29,54 +29,95 @@ class Exporter
     /**
      * Export translatable strings to the language file.
      *
+     * @param string $base_path
      * @param string $language
      * @return array
      */
-    public function export($language)
+    public function export($base_path, $language)
     {
-        $strings = $this->extractor->extract();
+        // @todo: Refactor this method in order to separate concerns.
 
-        $json = $this->formatJson($strings);
+        $new_strings = $this->extractor->extract();
 
-        $this->write($json, $language);
+        $new_strings = $this->formatArray($new_strings);
+
+        $path = $this->getExportPath($base_path, $language);
+
+        $existing_strings = $this->read($path);
+
+        $resulting_strings = (object) array_merge($new_strings, $existing_strings);
+
+        $json = $this->formatJson($resulting_strings);
+
+        $this->write($json, $path);
     }
 
     /**
-     * Write a JSON string to the language file.
+     * Write a string to a file.
      *
-     * @param string $language
-     * @param $json
+     * @todo: Extract the functio to a separate IO class.
+     *
+     * @param string $path
+     * @param $content
      */
-    protected function write($json, $language) {
-        $path = $this->getExportPath($language);
-
-        file_put_contents($path, $json);
+    protected function write($content, $path) {
+        file_put_contents($path, $content);
     }
 
     /**
-     * Convert an array to the properly formatted JSON string.
+     * Read json file and convert it into an array of strings.
      *
-     * @param array $strings
+     * @todo: Extract the functio to a separate IO class.
+     *
+     * @return array
+     */
+    protected function read($path) {
+
+        if (!file_exists($path)) {
+            return [];
+        }
+
+        $content = file_get_contents($path);
+
+        return (array) json_decode($content);
+    }
+
+    /**
+     * Convert an array/object to the properly formatted JSON string.
+     *
+     * @param $strings
      * @return string
      */
-    protected function formatJson(array $strings) {
+    protected function formatJson($strings) {
+        return json_encode($strings, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * Convert an array of extracted strings to an associative array where each string becomes key and value.
+     *
+     * @param array $strings
+     * @return array
+     */
+    protected function formatArray(array $strings) {
 
         $result = [];
+
         foreach ($strings as $string) {
             $result[$string] = $string;
         }
 
-        return json_encode($result, JSON_PRETTY_PRINT);
+        return $result;
     }
 
     /**
      * Generate full target path for the resulting translation file.
      *
+     * @param string $base_path
      * @param string $language
      * @return string
      */
-    protected function getExportPath($language) {
-        return base_path() . DIRECTORY_SEPARATOR . $this->directory . DIRECTORY_SEPARATOR .
-            $language . '.json';
+    protected function getExportPath($base_path, $language) {
+        return $base_path . DIRECTORY_SEPARATOR .
+            $this->directory . DIRECTORY_SEPARATOR . $language . '.json';
     }
 }

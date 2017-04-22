@@ -49,7 +49,7 @@ class ExportCommand extends Command {
     {
         $language = $this->argument('lang');
 
-        $this->exporter->export($language);
+        $this->exporter->export(base_path(), $language);
 
         $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
     }
