@@ -43,4 +43,16 @@ class ExporterServiceProvider extends ServiceProvider {
             'command.translatable-string-exporter.export',
         );
     }
+    
+    /**
+     * Perform post-registration booting of services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/../Config/laravel-translatable-string-exporter.php' => config_path('laravel-translatable-string-exporter.php'),
+        ]);
+    }
 }

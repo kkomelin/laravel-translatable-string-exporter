@@ -9,10 +9,7 @@ class Parser
      *
      * @var array
      */
-    protected $functions = [
-        '__',
-        '_t',
-    ];
+    protected $functions;
 
     /**
      * Translation function pattern.
@@ -27,6 +24,11 @@ class Parser
      */
     public function __construct()
     {
+        $this->functions = config('laravel-translatable-string-exporter.functions',
+           [
+                '__',
+                '_t'
+           ]);
         $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
     }
 
