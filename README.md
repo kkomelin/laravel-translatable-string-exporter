@@ -32,8 +32,9 @@ The command with the "es" parameter will create es.json file in the `resources/l
 
 - [x] Extract translatable strings and save them to a language file
 - [x] Preserve existing translations
-- [ ] Refactor Exporter class
-- [ ] Automated tests
+- [ ] Make directories, patterns and functions configurable (https://github.com/kkomelin/laravel-translatable-string-exporter/issues/5)
+- [ ] Refactor Exporter class (https://github.com/kkomelin/laravel-translatable-string-exporter/issues/3)
+- [ ] Develop automated tests (https://github.com/kkomelin/laravel-translatable-string-exporter/issues/4)
 
 ## License & Copyright
 
