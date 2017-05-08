@@ -9,27 +9,30 @@ class Finder
      *
      * @var array
      */
-    protected $directories = [
-        'app',
-        'resources',
-    ];
+    protected $directories;
 
     /**
      * File patterns to search for.
      *
      * @var array
      */
-    protected $patterns = [
-        '*.php',
-        '*.js',
-    ];
+    protected $patterns;
 
     /**
      * Finder constructor.
      */
     public function __construct()
     {
-
+        $this->directories = config('laravel-translatable-string-exporter.directories',
+            [
+                'app',
+                'resources',
+            ]);
+        $this->patterns = config('laravel-translatable-string-exporter.patterns',
+            [
+                '*.php',
+                '*.js'
+            ]);
     }
 
     /**
