@@ -3,8 +3,6 @@ As we know, Laravel 5.4 has introduced a "new" way of string translation.
 Now you can use `__('Translate me')` function and JSON files to translate strings.
 Translatable String Exporter is aimed to collect all translatable strings of an application and create corresponding translation files in JSON format to simplify the process of translation.
 
-Please note, the project is in its early development stage, so it can have issues.
-
 ## Installation
 
 1) Add kkomelin/laravel-translatable-string-exporter to your project:
