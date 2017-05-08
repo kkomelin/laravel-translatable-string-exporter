@@ -15,13 +15,21 @@ composer require kkomelin/laravel-translatable-string-exporter
 
 2) Add the `ExporterServiceProvider` to the providers array in config/app.php:
 
-```
+```php
 KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
+```
+
+## Configuration
+
+To change [project defaults](https://github.com/kkomelin/laravel-translatable-string-exporter/wiki/Configuration-and-Project-Defaults), use the following command to create a configuration file in your `config` folder and make necessary changes in there:
+
+```bash
+php artisan vendor:publish --provider="KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider"
 ```
 
 ## Usage
 
-```
+```bash
 php artisan translatable:export <lang>
 ```
 Where `<lang>` is a language code, for example "es".
@@ -32,7 +40,7 @@ The command with the "es" parameter will create es.json file in the `resources/l
 
 - [x] Extract translatable strings and save them to a language file
 - [x] Preserve existing translations
-- [ ] [Make directories, patterns and functions configurable](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/5)
+- [x] [Make directories, patterns and functions configurable](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/5)
 - [ ] [Refactor Exporter class](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/3)
 - [ ] [Develop automated tests](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/4)
 
