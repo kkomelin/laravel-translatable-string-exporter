@@ -20,5 +20,12 @@
       "KKomelin\\TranslatableStringExporter\\": "src/"
     }
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "KKomelin\\TranslatableStringExporter\\Providers\\ExporterServiceProvider"
+      ]
+    }
+  },
   "minimum-stability": "stable"
 }
