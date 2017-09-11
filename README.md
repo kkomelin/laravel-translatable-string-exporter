@@ -41,8 +41,8 @@ The command with the "es" parameter will create es.json file in the `resources/l
 - [x] Preserve existing translations
 - [x] [Make directories, patterns and functions configurable](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/5) | [v0.2.0](https://github.com/kkomelin/laravel-translatable-string-exporter/releases/tag/0.2.0)
 - [x] [Refactor Exporter class](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/3)
-- [x] [Package Auto-Discovery for Laravel 5.5](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/7)
-- [x] [Make the package compatible with Laravel 5.5](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/9)
+- [x] [Package Auto-Discovery for Laravel 5.5](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/7) | [v0.3.0](https://github.com/kkomelin/laravel-translatable-string-exporter/releases/tag/0.3.0)
+- [x] [Make the package compatible with Laravel 5.5](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/9) | [v0.3.0](https://github.com/kkomelin/laravel-translatable-string-exporter/releases/tag/0.3.0)
 - [ ] [Develop automated tests](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/4)
 
 ## License & Copyright
