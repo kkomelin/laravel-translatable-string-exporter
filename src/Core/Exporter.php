@@ -93,6 +93,6 @@ class Exporter
      * @return string
      */
     protected function mergeStrings($new_strings, $existing_strings) {
-        return (object) array_merge($new_strings, $existing_strings);
+        return (object) array_intersect_key(array_merge($new_strings, $existing_strings), $new_strings);
     }
 }
