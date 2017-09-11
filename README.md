@@ -11,7 +11,8 @@ Translatable String Exporter is aimed to collect all translatable strings of an 
 composer require kkomelin/laravel-translatable-string-exporter
 ```
 
-2) Add the `ExporterServiceProvider` to the providers array in config/app.php:
+2) For **Laravel >= 5.5** we use Package Auto-Discovery, so you may skip this step.  
+For **Laravel < 5.5**, add `ExporterServiceProvider` to the providers array in config/app.php:
 
 ```php
 KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
@@ -40,8 +41,8 @@ The command with the "es" parameter will create es.json file in the `resources/l
 - [x] Preserve existing translations
 - [x] [Make directories, patterns and functions configurable](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/5) | [v0.2.0](https://github.com/kkomelin/laravel-translatable-string-exporter/releases/tag/0.2.0)
 - [x] [Refactor Exporter class](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/3)
-- [ ] [Package Auto-Discovery for Laravel 5.5](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/7)
-- [ ] [Separate translation file for frontend strings](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/8)
+- [x] [Package Auto-Discovery for Laravel 5.5](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/7)
+- [x] [Make the package compatible with Laravel 5.5](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/9)
 - [ ] [Develop automated tests](https://github.com/kkomelin/laravel-translatable-string-exporter/issues/4)
 
 ## License & Copyright

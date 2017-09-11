@@ -11,8 +11,8 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "illuminate/support": "5.4.x",
-    "illuminate/translation": "5.4.x",
+    "illuminate/support": "^5.4.4",
+    "illuminate/translation": "^5.4.4",
     "symfony/finder": "^3.2"
   },
   "autoload": {
