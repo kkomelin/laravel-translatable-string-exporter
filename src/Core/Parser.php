@@ -26,8 +26,9 @@ class Parser
     {
         $this->functions = config('laravel-translatable-string-exporter.functions',
            [
-                '__',
-                '_t'
+               '__',
+               '_t',
+               '@lang'
            ]);
         $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
     }
