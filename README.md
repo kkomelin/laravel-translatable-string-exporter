@@ -37,4 +37,4 @@ The command with the "es" parameter will create es.json file in the `resources/l
 
 ## License & Copyright
 
-MIT, (c) 2017 Konstantin Komelin
+MIT, (c) 2018 Konstantin Komelin
