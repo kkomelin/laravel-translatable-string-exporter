@@ -47,8 +47,11 @@ class Exporter
         // Merge old an new translations. We don't override old strings to preserve existing translations.
         $resulting_strings = $this->mergeStrings($new_strings, $existing_strings);
 
+        // Sort the translations, if the option is enabled
+        $sorted_strings = $this->sortIfEnabled($resulting_strings);
+
         // Prepare JSON string and dump it to the translation file.
-        $content = $this->jsonEncode($resulting_strings);
+        $content = $this->jsonEncode($sorted_strings);
         IO::write($content, $path);
     }
 
@@ -98,5 +101,22 @@ class Exporter
     protected function mergeStrings($new_strings, $existing_strings)
     {
         return array_intersect_key(array_merge($new_strings, $existing_strings), $new_strings);
+    }
+
+    /**
+     * Sort the translation strings, if enabled from the configs
+     *
+     * @param array $strings
+     * @return array
+     */
+    protected function sortIfEnabled($strings)
+    {
+        if (config('laravel-translatable-string-exporter.sort-keys', false)) {
+            return array_sort($strings, function ($value, $key) {
+                return strtolower($key);
+            });
+        }
+
+        return $strings;
     }
 }
