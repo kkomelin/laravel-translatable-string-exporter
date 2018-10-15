@@ -1,14 +1,12 @@
 {
-  "name": "kkomelin/laravel-translatable-string-exporter",
+  "name": "t1sh0o/laravel-translatable-string-exporter",
   "description": "Translatable String Exporter for Laravel >= 5.4",
   "keywords": ["laravel", "translations", "export", "exporter"],
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Konstantin Komelin",
-      "email": "konstantin.komelin@gmail.com"
-    }
-  ],
+  "authors": [{
+    "name": "Konstantin Komelin",
+    "email": "konstantin.komelin@gmail.com"
+  }],
   "require": {
     "php": ">=5.4.0",
     "illuminate/support": "5.4.*|5.5.*|5.6.*|5.7.*",
