@@ -18,5 +18,9 @@ return [
         '__',
         '_t',
         '@lang'
-   ]
+    ],
+
+    // Indicates if we need to sort the translation keys
+    // It might be useful to find translations and detect duplications
+    'sort-keys' => false,
 ];
