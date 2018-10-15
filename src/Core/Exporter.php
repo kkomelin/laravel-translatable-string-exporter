@@ -58,7 +58,8 @@ class Exporter
      * @param $strings
      * @return string
      */
-    protected function jsonEncode($strings) {
+    protected function jsonEncode($strings)
+    {
         return json_encode($strings, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
@@ -68,7 +69,8 @@ class Exporter
      * @param string $string
      * @return array
      */
-    protected function jsonDecode($string) {
+    protected function jsonDecode($string)
+    {
         return (array) json_decode($string);
     }
 
@@ -79,7 +81,8 @@ class Exporter
      * @param string $language
      * @return string
      */
-    protected function getExportPath($base_path, $language) {
+    protected function getExportPath($base_path, $language)
+    {
         return $base_path . DIRECTORY_SEPARATOR .
             $this->directory . DIRECTORY_SEPARATOR . $language . '.json';
     }
@@ -92,7 +95,8 @@ class Exporter
      * @param array $new_strings
      * @return string
      */
-    protected function mergeStrings($new_strings, $existing_strings) {
-        return (object) array_intersect_key(array_merge($new_strings, $existing_strings), $new_strings);
+    protected function mergeStrings($new_strings, $existing_strings)
+    {
+        return array_intersect_key(array_merge($new_strings, $existing_strings), $new_strings);
     }
 }
