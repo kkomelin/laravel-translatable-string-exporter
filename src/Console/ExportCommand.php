@@ -6,7 +6,8 @@ use KKomelin\TranslatableStringExporter\Core\Exporter;
 use KKomelin\TranslatableStringExporter\Core\Extractor;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ExportCommand extends Command {
+class ExportCommand extends Command
+{
 
     /**
      * The console command name.
@@ -36,7 +37,7 @@ class ExportCommand extends Command {
     public function __construct(Exporter $exporter)
     {
         parent::__construct();
-        
+
         $this->exporter = $exporter;
     }
 
@@ -59,11 +60,13 @@ class ExportCommand extends Command {
      */
     public function handle()
     {
-        $language = $this->argument('lang');
+        $languages = explode(',', $this->argument('lang'));
 
-        $this->exporter->export(base_path(), $language);
+        foreach ($languages as $language) {
+            $this->exporter->export(base_path(), $language);
 
-        $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
+            $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
+        }
     }
 
     /**
@@ -73,8 +76,12 @@ class ExportCommand extends Command {
      */
     protected function getArguments()
     {
-        return array(
-            array('lang', InputArgument::REQUIRED, 'A language code for which the translatable strings are extracted, e.g. "es".'),
-        );
+        return [
+            [
+                'lang',
+                InputArgument::REQUIRED,
+                'A language code or codes for which the translatable strings are extracted, e.g. "es" or "es,en,bg".'
+            ],
+        ];
     }
 }
