@@ -1,18 +1,19 @@
 # Translatable String Exporter for Laravel >= 5.4
+
 As we know, Laravel 5.4 has introduced a "new" way of string translation.
 Now you can use `__('Translate me')` or `@lang('Translate me')` with translations in JSON files to translate strings.
 Translatable String Exporter is aimed to collect all translatable strings of an application and create corresponding translation files in JSON format to simplify the process of translation.
 
 ## Installation
 
-1) Add kkomelin/laravel-translatable-string-exporter to your project:
+1. Add kkomelin/laravel-translatable-string-exporter to your project:
 
 ```bash
 composer require kkomelin/laravel-translatable-string-exporter
 ```
 
-2) For **Laravel >= 5.5** we use Package Auto-Discovery, so you may skip this step.  
-For **Laravel < 5.5**, add `ExporterServiceProvider` to the providers array in config/app.php:
+2. For **Laravel >= 5.5** we use Package Auto-Discovery, so you may skip this step.
+   For **Laravel < 5.5**, add `ExporterServiceProvider` to the providers array in config/app.php:
 
 ```php
 KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
@@ -31,9 +32,15 @@ php artisan vendor:publish --provider="KKomelin\TranslatableStringExporter\Provi
 ```bash
 php artisan translatable:export <lang>
 ```
-Where `<lang>` is a language code, for example "es".
 
-The command with the "es" parameter will create es.json file in the `resources/lang` folder of your project.
+Where `<lang>` is a language code or a comma-separated list of language codes.  
+For example:
+```bash
+php artisan translatable:export es
+php artisan translatable:export es,bg,de
+```
+
+The command with the "es,bg,de" parameter passed will create es.json, bg.json, de.json files with translatable strings or update the existing files in the `resources/lang` folder of your project.
 
 ## License & Copyright
 
