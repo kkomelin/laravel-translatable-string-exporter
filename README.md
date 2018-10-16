@@ -40,7 +40,7 @@ php artisan translatable:export es
 php artisan translatable:export es,bg,de
 ```
 
-The command with the "es,bg,de" parameter passed will create es.json, bg.json, de.json files with translatable strings in the `resources/lang` folder of your project or update the existing files.
+The command with the "es,bg,de" parameter passed will create es.json, bg.json, de.json files with translatable strings or update the existing files in the `resources/lang` folder of your project.
 
 ## License & Copyright
 
