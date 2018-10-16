@@ -80,7 +80,7 @@ class ExportCommand extends Command
             [
                 'lang',
                 InputArgument::REQUIRED,
-                'A language code or codes for which the translatable strings are extracted, e.g. "es" or "es,en,bg".'
+                'A language code or a comma-separated list of language codes for which the translatable strings are extracted, e.g. "es" or "es,bg,de".'
             ],
         ];
     }
