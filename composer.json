@@ -18,6 +18,11 @@
       "KKomelin\\TranslatableStringExporter\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "extra": {
     "laravel": {
       "providers": [
@@ -25,5 +30,8 @@
       ]
     }
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+  "require-dev": {
+    "orchestra/testbench": "~3.0"
+  }
 }
