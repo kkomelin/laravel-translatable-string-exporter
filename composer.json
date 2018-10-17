@@ -1,5 +1,5 @@
 {
-  "name": "t1sh0o/laravel-translatable-string-exporter",
+  "name": "kkomelin/laravel-translatable-string-exporter",
   "description": "Translatable String Exporter for Laravel >= 5.4",
   "keywords": ["laravel", "translations", "export", "exporter"],
   "license": "MIT",
