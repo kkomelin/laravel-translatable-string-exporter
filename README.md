@@ -33,9 +33,14 @@ php artisan vendor:publish --provider="KKomelin\TranslatableStringExporter\Provi
 php artisan translatable:export <lang>
 ```
 
-Where `<lang>` is a language code, for example "es". You can also provide multiple languages to export to at once, separating their codes with comas "es,en,bg".
+Where `<lang>` is a language code or a comma-separated list of language codes.  
+For example:
+```bash
+php artisan translatable:export es
+php artisan translatable:export es,bg,de
+```
 
-The command with the "es" parameter will create es.json file in the `resources/lang` folder of your project.
+The command with the "es,bg,de" parameter passed will create es.json, bg.json, de.json files with translatable strings or update the existing files in the `resources/lang` folder of your project.
 
 ## License & Copyright
 
