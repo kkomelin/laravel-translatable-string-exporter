@@ -3,24 +3,24 @@ return [
     // Directories to search in.
     'directories'=> [
         'app',
-        'resources'
+        'resources',
     ],
 
     // File Patterns to search for.
     'patterns'=> [
         '*.php',
-        '*.js'
+        '*.js',
     ],
 
     // Translation function names.
-    // If your function name contains $ escape it using \$
+    // If your function name contains $ escape it using \$ .
     'functions'=> [
         '__',
         '_t',
-        '@lang'
+        '@lang',
     ],
 
-    // Indicates if we need to sort the translation keys
-    // It might be useful to find translations and detect duplications
+    // Indicates weather you need to sort the translations alphabetically by original strings.
+    // Helps navigate a translation file and detect possible duplicates.
     'sort-keys' => false,
 ];
