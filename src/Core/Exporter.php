@@ -47,7 +47,7 @@ class Exporter
         // Merge old an new translations. We don't override old strings to preserve existing translations.
         $resulting_strings = $this->mergeStrings($new_strings, $existing_strings);
 
-        // Sort the translations, if the option is enabled
+        // Sort the translations if enabled through the config.
         $sorted_strings = $this->sortIfEnabled($resulting_strings);
 
         // Prepare JSON string and dump it to the translation file.
@@ -104,7 +104,8 @@ class Exporter
     }
 
     /**
-     * Sort the translation strings, if enabled from the configs
+     * Sort the translation strings alphabetically by their original strings (keys) 
+     * if the corresponding option is enabled through the package config.
      *
      * @param array $strings
      * @return array
