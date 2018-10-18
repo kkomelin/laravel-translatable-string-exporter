@@ -104,7 +104,7 @@ class Exporter
     }
 
     /**
-     * Sort the translation strings alphabetically by the original string 
+     * Sort the translation strings alphabetically by their original strings (keys) 
      * if the corresponding option is enabled through the package config.
      *
      * @param array $strings
