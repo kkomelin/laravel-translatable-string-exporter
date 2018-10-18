@@ -20,7 +20,8 @@ return [
         '@lang',
     ],
 
-    // Indicates weather you need to sort the translations alphabetically by original strings.
-    // Helps navigate a translation file and detect possible duplicates.
+    // Indicates weather you need to sort the translations alphabetically 
+    // by original strings (keys).
+    // It helps navigate a translation file and detect possible duplicates.
     'sort-keys' => false,
 ];
