@@ -3,12 +3,10 @@
   "description": "Translatable String Exporter for Laravel >= 5.4",
   "keywords": ["laravel", "translations", "export", "exporter"],
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Konstantin Komelin",
-      "email": "konstantin.komelin@gmail.com"
-    }
-  ],
+  "authors": [{
+    "name": "Konstantin Komelin",
+    "email": "konstantin.komelin@gmail.com"
+  }],
   "require": {
     "php": ">=5.4.0",
     "illuminate/support": "5.4.*|5.5.*|5.6.*|5.7.*",
@@ -20,6 +18,11 @@
       "KKomelin\\TranslatableStringExporter\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "extra": {
     "laravel": {
       "providers": [
@@ -27,5 +30,9 @@
       ]
     }
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+  "require-dev": {
+    "orchestra/testbench": "~3.0",
+    "mockery/mockery": "^1.0"
+  }
 }
