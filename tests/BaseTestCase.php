@@ -18,6 +18,14 @@ class BaseTestCase extends TestCase
         $app['config']->set('laravel-translatable-string-exporter.directories', [
             'resources',
         ]);
+
+        $app['config']->set('laravel-translatable-string-exporter.sort-keys', true);
+
+        $app['config']->set('laravel-translatable-string-exporter.functions', [
+            '__',
+            '_t',
+            '@lang',
+        ]);
     }
 
     protected function cleanLangsFolder()
@@ -33,5 +41,23 @@ class BaseTestCase extends TestCase
     protected function createTestView($content)
     {
         file_put_contents(resource_path('views/index.blade.php'), $content);
+    }
+
+    protected function getTranslationFilePath($language)
+    {
+        return resource_path('lang/' . $language . '.json');
+    }
+
+    protected function getTranslationFileContent($language)
+    {
+        $path = $this->getTranslationFilePath($language);
+        $content = file_get_contents($path);
+        return json_decode($content, true);
+    }
+
+    protected function writeToTranslationFile($language, $content)
+    {
+        $path = $this->getTranslationFilePath($language);
+        file_put_contents($path, $content);
     }
 }
