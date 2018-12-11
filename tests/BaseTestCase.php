@@ -26,6 +26,11 @@ class BaseTestCase extends TestCase
             '_t',
             '@lang',
         ]);
+
+        $app['config']->set('laravel-translatable-string-exporter.dom-nodes', [
+            'lang',
+            'custom'
+        ]);
     }
 
     protected function cleanLangsFolder()

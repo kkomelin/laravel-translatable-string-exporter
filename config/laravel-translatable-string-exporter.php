@@ -20,6 +20,12 @@ return [
         '@lang',
     ],
 
+    // Translation dom node names
+    // Eg. <node-name></node-name>
+    'dom-nodes'=> [
+        'lang',
+    ],
+    
     // Indicates weather you need to sort the translations alphabetically 
     // by original strings (keys).
     // It helps navigate a translation file and detect possible duplicates.

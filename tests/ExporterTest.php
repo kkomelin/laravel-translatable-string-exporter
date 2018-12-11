@@ -81,6 +81,27 @@ class ExporterTest extends BaseTestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testTranslationNodeNames()
+    {
+
+        $this->cleanLangsFolder();
+
+        $this->createTestView("text<lang>name_lang</lang>text<custom>name_custom</custom>text");
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+
+        $expected = [
+            'name_lang' => 'name_lang',
+            'name_custom' => 'name_custom',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testUpdatingTranslations()
     {
         $this->cleanLangsFolder();

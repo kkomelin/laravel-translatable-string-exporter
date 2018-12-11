@@ -12,11 +12,18 @@ class CodeParser
     protected $functions;
 
     /**
+     * Translation dom nodes
+     *
+     * @var array
+     */
+    protected $dom_nodes;
+    
+    /**
      * Translation function pattern.
      *
      * @var string
      */
-    protected $pattern = '/([FUNCTIONS])\([\'"](.+)[\'"][\),]/U';
+    protected $pattern = '/([FUNCTIONS])\([\'"](.+)[\'"][\),]|<([DOMNODES])>(.+)<\/([DOMNODES])>/U';
 
 
     /**
@@ -28,9 +35,15 @@ class CodeParser
            [
                '__',
                '_t',
-               '@lang'
+               '@lang',
            ]);
         $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
+
+        $this->dom_nodes = config('laravel-translatable-string-exporter.dom-nodes',
+            [
+                'lang',
+            ]);
+        $this->pattern = str_replace('[DOMNODES]', implode('|', $this->dom_nodes), $this->pattern);
     }
 
     /**
@@ -47,7 +60,11 @@ class CodeParser
             return $strings;
         }
 
-        foreach ($matches[2] as $string) {
+        // Functions: match[2] | DOM-Nodes: match[4]
+        foreach (array_merge($matches[2], $matches[4]) as $string) {
+            if ($string == "") {
+                continue;
+            }
             $strings[] = $string;
         }
 
