@@ -42,9 +42,9 @@ php artisan translatable:export es,bg,de
 
 The command with the "es,bg,de" parameter passed will create es.json, bg.json, de.json files with translatable strings or update the existing files in the `resources/lang` folder of your project.
 
-### Find untranslated lines
+### Find untranslated lines in the language file
 
-The easiest out-of-the-box way to find untranslated lines is to search for entries with the same string for original and translated. You can do this in the most editors using regex.
+The easiest way to find untranslated lines in your language files is to search for entries with the same string for original and translated. You can do this in the most editors using regex.
 
 In PhpStorm, you can use this pattern: `"([^"]*)": "\1"`
 
