@@ -139,4 +139,46 @@ class ExporterTest extends BaseTestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testPersistentTranslations()
+    {
+        $this->cleanLangsFolder();
+
+        // 1. Create a translation file ourselves.
+
+        $existing_translations = [
+            'name1_en' => 'name1_es',
+            'name2_en' => 'name2_es',
+            'name3_en' => 'name3_es',
+        ];
+
+        $content = json_encode($existing_translations);
+
+        $this->writeToTranslationFile('es', $content);
+
+        // 2. Create a file with the keys of any strings which should persist even if they are not contained in the views.
+
+        $persistentContent = json_encode(['name2_en']);
+        $this->writeToTranslationFile('persistent-strings', $persistentContent);
+
+        // 3. Create a test view only containing one of the non-persistent strings, and a new string.
+
+        $this->createTestView("{{ Existing string: __('name1_en') New string: __('name4_en') }}");
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+
+        // The missing, non-persistent, strings should be removed. The rest should remain.
+
+        $expected = [
+            'name1_en' => 'name1_es',
+            'name2_en' => 'name2_es',
+            'name4_en' => 'name4_en',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
 }

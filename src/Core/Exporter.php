@@ -35,24 +35,29 @@ class Exporter
      */
     public function export($base_path, $language)
     {
-        $path = $this->getExportPath($base_path, $language);
+        $language_path = $this->getExportPath($base_path, $language);
 
         // Extract source strings from the project directories.
         $new_strings = $this->extractor->extract();
 
         // Read existing translation file for chosen language.
-        $content = IO::read($path);
+        $content = IO::read($language_path);
         $existing_strings = $this->jsonDecode($content);
 
+        // Get the persistent strings
+        $persistent_strings_path = $this->getExportPath($base_path, 'persistent-strings');
+        $persistent_content = IO::read($persistent_strings_path);
+        $persistent_strings = $this->jsonDecode($persistent_content);
+
         // Merge old an new translations. We don't override old strings to preserve existing translations.
-        $resulting_strings = $this->mergeStrings($new_strings, $existing_strings);
+        $resulting_strings = $this->mergeStrings($new_strings, $existing_strings, $persistent_strings);
 
         // Sort the translations if enabled through the config.
         $sorted_strings = $this->sortIfEnabled($resulting_strings);
 
         // Prepare JSON string and dump it to the translation file.
         $content = $this->jsonEncode($sorted_strings);
-        IO::write($content, $path);
+        IO::write($content, $language_path);
     }
 
     /**
@@ -96,11 +101,15 @@ class Exporter
      *
      * @param array $existing_strings
      * @param array $new_strings
+     * @param array $persistent_strings
      * @return string
      */
-    protected function mergeStrings($new_strings, $existing_strings)
+    protected function mergeStrings($new_strings, $existing_strings, $persistent_strings)
     {
-        return array_intersect_key(array_merge($new_strings, $existing_strings), $new_strings);
+        $merged_strings = array_merge($new_strings, $existing_strings);
+        return array_filter($merged_strings, function ($key) use ($persistent_strings, $new_strings) {
+            return in_array($key, $persistent_strings) || array_key_exists($key, $new_strings);
+        }, ARRAY_FILTER_USE_KEY);
     }
 
     /**
