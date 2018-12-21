@@ -46,23 +46,23 @@ The command with the "es,bg,de" parameter passed will create es.json, bg.json, d
 
 Some strings are not included in the export, because they are being dynamically generated. For example:
 
-```{{ __(sprintf('Dear :name, your order has been %s', $orderStatus)) }}```
+```{{ __(sprintf('Dear customer, your order has been %s', $orderStatus)) }}```
 
 Where `$orderStatus` can be 'approved', 'paid', 'cancelled' and so on.
 
 In this case, you can add the strings to the `<lang>.json` file manually. For example:
 
 ```
-  "Dear :name, your order has been approved": "Dear :name, your order has been approved",
-  "Dear :name, your order has been paid": "Dear :name, your order has been paid",
+  "Dear customer, your order has been approved": "Dear customer, your order has been approved",
+  "Dear customer, your order has been paid": "Dear customer, your order has been paid",
   ...
 ```
 
 In order for those, manually added, strings not to get removed the next time you run the export command, you should add them to a json file named `persistent-strings.json`. For example:
 ```
 [
-  "Dear :name, your order has been approved",
-  "Dear :name, your order has been paid",
+  "Dear customer, your order has been approved",
+  "Dear customer, your order has been paid",
   ...
 ]
 ```
