@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use KKomelin\TranslatableStringExporter\Core\Exporter;
+
 class ExporterTest extends BaseTestCase
 {
     public function testTranslationFilesCreation()
@@ -159,7 +161,7 @@ class ExporterTest extends BaseTestCase
         // 2. Create a file with the keys of any strings which should persist even if they are not contained in the views.
 
         $persistentContent = json_encode(['name2_en']);
-        $this->writeToTranslationFile('persistent-strings', $persistentContent);
+        $this->writeToTranslationFile(Exporter::PERSISTENT_STRINGS_FILENAME_WO_EXT, $persistentContent);
 
         // 3. Create a test view only containing one of the non-persistent strings, and a new string.
 

@@ -7,9 +7,16 @@ class Exporter
     /**
      * The target directory for translation files.
      *
-     * @var array
+     * @var string
      */
     protected $directory = 'resources/lang';
+
+    /**
+     * The filename without extension for persistent strings.
+     *
+     * @var string
+     */
+    const PERSISTENT_STRINGS_FILENAME_WO_EXT = 'persistent-strings';
 
     /**
      * Extractor object.
@@ -44,12 +51,12 @@ class Exporter
         $content = IO::read($language_path);
         $existing_strings = $this->jsonDecode($content);
 
-        // Get the persistent strings
-        $persistent_strings_path = $this->getExportPath($base_path, 'persistent-strings');
+        // Get the persistent strings.
+        $persistent_strings_path = $this->getExportPath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
         $persistent_content = IO::read($persistent_strings_path);
         $persistent_strings = $this->jsonDecode($persistent_content);
 
-        // Merge old an new translations. We don't override old strings to preserve existing translations.
+        // Merge old an new translations preserving existing translations and persistent strings.
         $resulting_strings = $this->mergeStrings($new_strings, $existing_strings, $persistent_strings);
 
         // Sort the translations if enabled through the config.
@@ -96,13 +103,12 @@ class Exporter
     }
 
     /**
-     * Merge two arrays of translations and convert the resulting array to object.
-     * We don't override old strings to preserve existing translations.
+     * Merge two arrays of translations preserving existing translations and persistent strings.
      *
      * @param array $existing_strings
      * @param array $new_strings
      * @param array $persistent_strings
-     * @return string
+     * @return array
      */
     protected function mergeStrings($new_strings, $existing_strings, $persistent_strings)
     {
