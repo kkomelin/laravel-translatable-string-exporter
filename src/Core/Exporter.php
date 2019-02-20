@@ -5,19 +5,19 @@ namespace KKomelin\TranslatableStringExporter\Core;
 class Exporter
 {
     /**
-     * The target directory for translation files.
-     *
-     * @var string
-     */
-    protected $directory = 'resources/lang';
-
-    /**
      * The filename without extension for persistent strings.
      *
      * @var string
      */
     const PERSISTENT_STRINGS_FILENAME_WO_EXT = 'persistent-strings';
 
+    /**
+     * The target directory for translation files.
+     *
+     * @var string
+     */
+    protected $directory = 'resources/lang';
+    
     /**
      * Extractor object.
      *
