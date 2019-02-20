@@ -17,7 +17,7 @@ class Exporter
      * @var string
      */
     protected $directory = 'resources/lang';
-    
+
     /**
      * Extractor object.
      *
@@ -113,9 +113,9 @@ class Exporter
     protected function mergeStrings($new_strings, $existing_strings, $persistent_strings)
     {
         $merged_strings = array_merge($new_strings, $existing_strings);
-        return array_filter($merged_strings, function ($key) use ($persistent_strings, $new_strings) {
+        return $this->arrayFilterByKey($merged_strings, function ($key) use ($persistent_strings, $new_strings) {
             return in_array($key, $persistent_strings) || array_key_exists($key, $new_strings);
-        }, ARRAY_FILTER_USE_KEY);
+        });
     }
 
     /**
@@ -134,5 +134,28 @@ class Exporter
         }
 
         return $strings;
+    }
+
+    /**
+     * Filtering an array by its keys using a callback.
+     * Supports PHP < 5.6.0. Use array_filter($array, $callback, ARRAY_FILTER_USE_KEY) instead
+     * if you don't need to support earlier versions.
+     *
+     * The code borrowed from https://gist.github.com/h4cc/8e2e3d0f6a8cd9cacde8
+     *
+     * @deprecated 2.0.0 Replace with array_filter($array, $callback, ARRAY_FILTER_USE_KEY) when drop PHP < 5.6 support.
+     *
+     * @param array $array
+     *  The array to iterate over.
+     * @param callable $callback
+     *  The callback function to use.
+     *
+     * @return array
+     *  The filtered array.
+     */
+    private function arrayFilterByKey($array, $callback)
+    {
+        $matchedKeys = array_filter(array_keys($array), $callback);
+        return array_intersect_key($array, array_flip($matchedKeys));
     }
 }
