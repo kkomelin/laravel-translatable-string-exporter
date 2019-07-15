@@ -2,7 +2,7 @@
 
 namespace KKomelin\TranslatableStringExporter\Core;
 
-class Parser
+class CodeParser
 {
     /**
      * Translation function names.

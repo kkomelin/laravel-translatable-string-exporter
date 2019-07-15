@@ -2,15 +2,15 @@
 
 namespace KKomelin\TranslatableStringExporter\Core;
 
-class Extractor
+class StringExtractor
 {
     private $finder;
     private $parser;
 
     public function __construct()
     {
-        $this->finder = new Finder();
-        $this->parser = new Parser();
+        $this->finder = new FileFinder();
+        $this->parser = new CodeParser();
     }
 
     /**

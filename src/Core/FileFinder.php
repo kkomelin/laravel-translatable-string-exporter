@@ -2,7 +2,7 @@
 
 namespace KKomelin\TranslatableStringExporter\Core;
 
-class Finder
+class FileFinder
 {
     /**
      * Directories to search in.

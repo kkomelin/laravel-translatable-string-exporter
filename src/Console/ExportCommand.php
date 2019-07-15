@@ -3,7 +3,7 @@ namespace KKomelin\TranslatableStringExporter\Console;
 
 use Illuminate\Console\Command;
 use KKomelin\TranslatableStringExporter\Core\Exporter;
-use KKomelin\TranslatableStringExporter\Core\Extractor;
+use KKomelin\TranslatableStringExporter\Core\StringExtractor;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ExportCommand extends Command
@@ -25,14 +25,14 @@ class ExportCommand extends Command
 
 
     /**
-     * @var Extractor
+     * @var StringExtractor
      */
     protected $exporter;
 
     /**
      * ExtractCommand constructor.
      *
-     * @param Extractor $extractor
+     * @param StringExtractor $extractor
      */
     public function __construct(Exporter $exporter)
     {

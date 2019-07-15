@@ -2,6 +2,9 @@
 
 namespace KKomelin\TranslatableStringExporter\Core;
 
+use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
+use KKomelin\TranslatableStringExporter\Core\Utils\IO;
+
 class Exporter
 {
     /**
@@ -16,12 +19,12 @@ class Exporter
      *
      * @var string
      */
-    protected $directory = 'resources/lang';
+    const TRANSLATION_FILE_DIRECTORY = 'resources/lang';
 
     /**
      * Extractor object.
      *
-     * @var Extractor
+     * @var StringExtractor
      */
     private $extractor;
 
@@ -30,7 +33,7 @@ class Exporter
      */
     public function __construct()
     {
-        $this->extractor = new Extractor();
+        $this->extractor = new StringExtractor();
     }
 
     /**
@@ -47,14 +50,13 @@ class Exporter
         // Extract source strings from the project directories.
         $new_strings = $this->extractor->extract();
 
-        // Read existing translation file for chosen language.
-        $content = IO::read($language_path);
-        $existing_strings = $this->jsonDecode($content);
+        // Read existing translation file for the chosen language.
+        $existing_strings = IO::readTranslationFile($language_path);
 
         // Get the persistent strings.
-        $persistent_strings_path = $this->getExportPath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
-        $persistent_content = IO::read($persistent_strings_path);
-        $persistent_strings = $this->jsonDecode($persistent_content);
+        $persistent_strings_path =
+            $this->getExportPath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
+        $persistent_strings = IO::readTranslationFile($persistent_strings_path);
 
         // Merge old an new translations preserving existing translations and persistent strings.
         $resulting_strings = $this->mergeStrings($new_strings, $existing_strings, $persistent_strings);
@@ -63,30 +65,8 @@ class Exporter
         $sorted_strings = $this->sortIfEnabled($resulting_strings);
 
         // Prepare JSON string and dump it to the translation file.
-        $content = $this->jsonEncode($sorted_strings);
+        $content = JSON::jsonEncode($sorted_strings);
         IO::write($content, $language_path);
-    }
-
-    /**
-     * Convert an array/object to the properly formatted JSON string.
-     *
-     * @param $strings
-     * @return string
-     */
-    protected function jsonEncode($strings)
-    {
-        return json_encode($strings, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    }
-
-    /**
-     * Convert a JSON string to an array.
-     *
-     * @param string $string
-     * @return array
-     */
-    protected function jsonDecode($string)
-    {
-        return (array) json_decode($string);
     }
 
     /**
@@ -99,7 +79,7 @@ class Exporter
     protected function getExportPath($base_path, $language)
     {
         return $base_path . DIRECTORY_SEPARATOR .
-            $this->directory . DIRECTORY_SEPARATOR . $language . '.json';
+            self::TRANSLATION_FILE_DIRECTORY . DIRECTORY_SEPARATOR . $language . '.json';
     }
 
     /**
