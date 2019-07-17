@@ -15,13 +15,6 @@ class Exporter
     const PERSISTENT_STRINGS_FILENAME_WO_EXT = 'persistent-strings';
 
     /**
-     * The target directory for translation files.
-     *
-     * @var string
-     */
-    const TRANSLATION_FILE_DIRECTORY = 'resources/lang';
-
-    /**
      * Extractor object.
      *
      * @var StringExtractor
@@ -45,7 +38,7 @@ class Exporter
      */
     public function export($base_path, $language)
     {
-        $language_path = $this->getExportPath($base_path, $language);
+        $language_path = IO::languageFilePath($base_path, $language);
 
         // Extract source strings from the project directories.
         $new_strings = $this->extractor->extract();
@@ -55,7 +48,7 @@ class Exporter
 
         // Get the persistent strings.
         $persistent_strings_path =
-            $this->getExportPath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
+            IO::languageFilePath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
         $persistent_strings = IO::readTranslationFile($persistent_strings_path);
 
         // Merge old an new translations preserving existing translations and persistent strings.
@@ -67,19 +60,6 @@ class Exporter
         // Prepare JSON string and dump it to the translation file.
         $content = JSON::jsonEncode($sorted_strings);
         IO::write($content, $language_path);
-    }
-
-    /**
-     * Generate full target path for the resulting translation file.
-     *
-     * @param string $base_path
-     * @param string $language
-     * @return string
-     */
-    protected function getExportPath($base_path, $language)
-    {
-        return $base_path . DIRECTORY_SEPARATOR .
-            self::TRANSLATION_FILE_DIRECTORY . DIRECTORY_SEPARATOR . $language . '.json';
     }
 
     /**

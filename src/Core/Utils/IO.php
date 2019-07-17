@@ -12,6 +12,13 @@ use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
 class IO
 {
     /**
+     * The target directory for translation files.
+     *
+     * @var string
+     */
+    const TRANSLATION_FILE_DIRECTORY = 'resources/lang';
+
+    /**
      * Write a string to a file.
      *
      * @param string $path
@@ -44,5 +51,19 @@ class IO
     public static function readTranslationFile($language_path) {
         $content = self::read($language_path);
         return JSON::jsonDecode($content);
+    }
+
+    /**
+     * Get language file path.
+     *
+     * @param string $base_path
+     * @param string $language
+     * @return string
+     */
+    public static function languageFilePath($base_path, $language)
+    {
+        return $base_path . DIRECTORY_SEPARATOR .
+            self::TRANSLATION_FILE_DIRECTORY . DIRECTORY_SEPARATOR .
+            $language . '.json';
     }
 }
