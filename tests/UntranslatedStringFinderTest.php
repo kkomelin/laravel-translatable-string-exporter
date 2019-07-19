@@ -27,7 +27,11 @@ class UntranslatedStringFinderTest extends BaseTestCase
             'lang' => $language,
             '--export-first' => true
         ])
-            ->expectsOutput('Found ' . count($source) . ' untranslated strings in the ' . $language . '.json file:');
+            ->expectsOutput(
+                'Found ' . count($source) . ' untranslated ' .
+                Str::plural('string', count($source)) . ' in the ' .
+                $language . '.json file:'
+            );
 
         $expected = array_reverse($source);
 

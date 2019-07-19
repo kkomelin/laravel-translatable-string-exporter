@@ -79,8 +79,14 @@ class DisplayUntranslatedCommand extends Command
             return;
         }
 
+        $count_untranslated = count($untranslated_strings);
+
         // Display untranslated strings.
-        $this->info('Found ' . count($untranslated_strings) . ' untranslated strings in the ' . $language . '.json file:');
+        $this->info(
+            'Found ' . $count_untranslated . ' untranslated ' .
+            Str::plural('string', $count_untranslated) . ' in the ' .
+            $language . '.json file:'
+        );
         foreach ($untranslated_strings as $untranslated_string) {
             $this->info($untranslated_string);
         }
