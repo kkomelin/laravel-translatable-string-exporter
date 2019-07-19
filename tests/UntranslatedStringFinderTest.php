@@ -23,7 +23,7 @@ class UntranslatedStringFinderTest extends BaseTestCase
         $this->createTestView(implode(' ', $template_strings));
 
         $language = 'es';
-        $command = $this->artisan('translatable:display-untranslated', [
+        $command = $this->artisan('translatable:inspect-translations', [
             'lang' => $language,
             '--export-first' => true
         ])

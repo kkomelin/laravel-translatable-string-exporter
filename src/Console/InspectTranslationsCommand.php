@@ -7,7 +7,7 @@ use KKomelin\TranslatableStringExporter\Core\StringExtractor;
 use KKomelin\TranslatableStringExporter\Core\UntranslatedStringFinder;
 use Symfony\Component\Console\Input\InputArgument;
 
-class DisplayUntranslatedCommand extends Command
+class InspectTranslationsCommand extends Command
 {
 
     /**
@@ -15,7 +15,7 @@ class DisplayUntranslatedCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translatable:display-untranslated {lang} {--export-first}';
+    protected $signature = 'translatable:inspect-translations {lang} {--export-first}';
 
     /**
      * The console command description.

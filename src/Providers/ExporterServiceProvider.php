@@ -3,7 +3,7 @@
 namespace KKomelin\TranslatableStringExporter\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use KKomelin\TranslatableStringExporter\Console\DisplayUntranslatedCommand;
+use KKomelin\TranslatableStringExporter\Console\InspectTranslationsCommand;
 use KKomelin\TranslatableStringExporter\Console\ExportCommand;
 
 class ExporterServiceProvider extends ServiceProvider {
@@ -24,7 +24,7 @@ class ExporterServiceProvider extends ServiceProvider {
     {
         // @todo: Optimize the following code. Switch to ::class after 2.0.0 version.
 
-        // Export.
+        // Export translatable strings command.
 
         $this->app->singleton('translatable-string-exporter-exporter', function ($app) {
             return $app->make('\KKomelin\TranslatableStringExporter\Core\Exporter');
@@ -35,19 +35,19 @@ class ExporterServiceProvider extends ServiceProvider {
         });
         $this->commands('command.translatable-string-exporter-exporter.export');
 
-        // DisplayUntranslated.
+        // Inspect translations command.
 
-        $this->app->singleton('translatable-string-exporter-display-untranslated', function ($app) {
+        $this->app->singleton('translatable-string-exporter-inspect-translations', function ($app) {
             return $app->make('\KKomelin\TranslatableStringExporter\Core\UntranslatedStringFinder');
         });
 
-        $this->app->singleton('command.translatable-string-exporter-display-untranslated.display-untranslated', function ($app) {
-            return new DisplayUntranslatedCommand(
+        $this->app->singleton('command.translatable-string-exporter-inspect-translations.inspect-translations', function ($app) {
+            return new InspectTranslationsCommand(
                 $app['translatable-string-exporter-exporter'],
-                $app['translatable-string-exporter-display-untranslated']
+                $app['translatable-string-exporter-inspect-translations']
             );
         });
-        $this->commands('command.translatable-string-exporter-display-untranslated.display-untranslated');
+        $this->commands('command.translatable-string-exporter-inspect-translations.inspect-translations');
     }
 
     /**
@@ -60,8 +60,8 @@ class ExporterServiceProvider extends ServiceProvider {
         return array(
             'translatable-string-exporter-exporter',
             'command.translatable-string-exporter-exporter.export',
-            'translatable-string-exporter-display-untranslated',
-            'command.translatable-string-exporter-display-untranslated.display-untranslated',
+            'translatable-string-exporter-inspect-translations',
+            'command.translatable-string-exporter-inspect-translations.inspect-translations',
         );
     }
     
