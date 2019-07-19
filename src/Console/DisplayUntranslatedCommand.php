@@ -84,7 +84,7 @@ class DisplayUntranslatedCommand extends Command
         // Display untranslated strings.
         $this->info(
             'Found ' . $count_untranslated . ' untranslated ' .
-            Str::plural('string', $count_untranslated) . ' in the ' .
+            \Str::plural('string', $count_untranslated) . ' in the ' .
             $language . '.json file:'
         );
         foreach ($untranslated_strings as $untranslated_string) {
