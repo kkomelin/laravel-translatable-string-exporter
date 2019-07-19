@@ -74,6 +74,11 @@ class InspectTranslationsCommand extends Command
         // Find untranslated strings in the given language file.
         $untranslated_strings = $this->finder->find(base_path(), $language);
 
+        if ($untranslated_strings === false) {
+            $this->info('Did not find ' . $language . '.json file. Use --export-first option.');
+            return;
+        }
+
         if (empty($untranslated_strings)) {
             $this->info('Did not find any untranslated strings in the ' . $language . '.json file.');
             return;

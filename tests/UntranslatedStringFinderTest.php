@@ -6,7 +6,20 @@ class UntranslatedStringFinderTest extends BaseTestCase
 {
     // @todo: Add more tests.
 
-    public function testFinder()
+    public function testFileDoesntExist()
+    {
+        $this->cleanLangsFolder();
+
+        $language = 'fr';
+        $command = $this->artisan('translatable:inspect-translations', [
+            'lang' => $language,
+        ])
+            ->expectsOutput('Did not find ' . $language . '.json file. Use --export-first option.');
+
+        $command->assertExitCode(0);
+    }
+
+    public function testExportAndInspect()
     {
         $this->cleanLangsFolder();
 

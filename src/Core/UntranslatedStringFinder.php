@@ -17,6 +17,10 @@ class UntranslatedStringFinder
     {
         $language_path = IO::languageFilePath($base_path, $language);
 
+        if (!file_exists($language_path)) {
+            return false;
+        }
+
         // Read existing translation file for the chosen language.
         $existing_strings = IO::readTranslationFile($language_path);
 
