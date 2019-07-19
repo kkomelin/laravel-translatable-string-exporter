@@ -29,6 +29,8 @@ php artisan vendor:publish --provider="KKomelin\TranslatableStringExporter\Provi
 
 ## Usage
 
+### Export translatable strings
+
 ```bash
 php artisan translatable:export <lang>
 ```
@@ -41,6 +43,21 @@ php artisan translatable:export es,bg,de
 ```
 
 The command with the "es,bg,de" parameter passed will create es.json, bg.json, de.json files with translatable strings or update the existing files in the `resources/lang` folder of your project.
+
+### Find untranslated strings in a language file (inspect a file)
+
+To inspect an existing language file use this command:
+
+```bash
+php artisan translatable:inspect-translations fr
+```
+Only one language at a time, please.
+
+To export translatable strings for a language and then inspect translations in it, use the following command:
+
+```bash
+php artisan translatable:inspect-translations fr --export-first
+```
 
 ### Persistent strings
 
