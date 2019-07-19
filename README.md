@@ -61,7 +61,8 @@ php artisan translatable:inspect-translations fr --export-first
 
 ### Find untranslated strings in a language file (IDE)
 
-The easiest way to find untranslated strings in your language files at the moment is to search for entries with the same string for original and translated. You can do this in most editors using a regular expression.
+An alternative way to find untranslated strings in your language files is to search for entries with the same string for original and translated. 
+You can do this in most editors using a regular expression.
 
 In PhpStorm, you can use this pattern: `"([^"]*)": "\1"`
 
