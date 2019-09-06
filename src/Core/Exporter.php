@@ -2,6 +2,7 @@
 
 namespace KKomelin\TranslatableStringExporter\Core;
 
+use Illuminate\Support\Arr;
 use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
 use KKomelin\TranslatableStringExporter\Core\Utils\IO;
 
@@ -88,7 +89,7 @@ class Exporter
     protected function sortIfEnabled($strings)
     {
         if (config('laravel-translatable-string-exporter.sort-keys', false)) {
-            return array_sort($strings, function ($value, $key) {
+            return Arr::sort($strings, function ($value, $key) {
                 return strtolower($key);
             });
         }
