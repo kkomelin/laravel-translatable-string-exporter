@@ -73,7 +73,7 @@ class ExporterServiceProvider extends ServiceProvider {
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../config/laravel-translatable-string-exporter.php' => config_path('laravel-translatable-string-exporter.php'),
+            __DIR__.'/../../config/laravel-translatable-string-exporter.php' => base_path('laravel-translatable-string-exporter.php'),
         ]);
     }
 }
