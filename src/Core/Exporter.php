@@ -35,14 +35,15 @@ class Exporter
      *
      * @param string $base_path
      * @param string $language
+     * @param array  $patterns
      * @return array
      */
-    public function export($base_path, $language)
+    public function export($base_path, $language, array $patterns=null)
     {
         $language_path = IO::languageFilePath($base_path, $language);
 
         // Extract source strings from the project directories.
-        $new_strings = $this->extractor->extract();
+        $new_strings = $this->extractor->extract($patterns);
 
         // Read existing translation file for the chosen language.
         $existing_strings = IO::readTranslationFile($language_path);

@@ -36,6 +36,16 @@ class FileFinder
     }
 
     /**
+     * Override the default patterns
+     * 
+     * @param array $patterns
+     */
+    public function setPatterns(array $patterns)
+    {
+        $this->patterns = $patterns;
+    }
+
+    /**
      * Find all files that can contain translatable strings.
      *
      * @return \Symfony\Component\Finder\Finder|null
