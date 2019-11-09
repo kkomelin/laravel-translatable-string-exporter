@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests;
+use Illuminate\Support\Str;
 
 class UntranslatedStringFinderTest extends BaseTestCase
 {
@@ -42,7 +43,7 @@ class UntranslatedStringFinderTest extends BaseTestCase
         ])
             ->expectsOutput(
                 'Found ' . count($source) . ' untranslated ' .
-                \Str::plural('string', count($source)) . ' in the ' .
+                Str::plural('string', count($source)) . ' in the ' .
                 $language . '.json file:'
             );
 
