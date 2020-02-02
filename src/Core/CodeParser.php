@@ -16,7 +16,7 @@ class CodeParser
      *
      * @var string
      */
-    protected $pattern = '/([FUNCTIONS])\([\'"](.+)[\'"][\),]/U';
+    protected $pattern = '/([FUNCTIONS])\(\h?[\'"](.+)[\'"]\h?[\),]/U';
 
 
     /**
