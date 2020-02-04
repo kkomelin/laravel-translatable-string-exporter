@@ -64,7 +64,14 @@ class ExporterTest extends BaseTestCase
 
         $this->cleanLangsFolder();
 
-        $this->createTestView("{{ __('name__') }} @lang('name_lang') {{ _t('name_t') }}");
+        $view = "{{ __('name__') }} " .
+            "@lang('name_lang') " .
+            "{{ _t('name_t') }} " .
+            "{{ __('name__space_end' ) }} " .
+            "@lang( 'name_lang_space_start') " .
+            "{{ _t( 'name_t_space_both' ) }}";
+
+        $this->createTestView($view);
 
         $this->artisan('translatable:export', ['lang' => 'es'])
             ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
@@ -76,6 +83,9 @@ class ExporterTest extends BaseTestCase
             'name__' => 'name__',
             'name_lang' => 'name_lang',
             'name_t' => 'name_t',
+            'name__space_end' => 'name__space_end',
+            'name_lang_space_start' => 'name_lang_space_start',
+            'name_t_space_both' => 'name_t_space_both',
         ];
 
         $this->assertEquals($expected, $actual);
