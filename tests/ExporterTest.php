@@ -69,7 +69,8 @@ class ExporterTest extends BaseTestCase
             "{{ _t('name_t') }} " .
             "{{ __('name__space_end' ) }} " .
             "@lang( 'name_lang_space_start') " .
-            "{{ _t( 'name_t_space_both' ) }}";
+            "{{ _t( 'name_t_space_both' ) }} " .
+            "{{ _t(  'name_t_double_space'  ) }}";
 
         $this->createTestView($view);
 
@@ -86,6 +87,7 @@ class ExporterTest extends BaseTestCase
             'name__space_end' => 'name__space_end',
             'name_lang_space_start' => 'name_lang_space_start',
             'name_t_space_both' => 'name_t_space_both',
+            'name_t_double_space' => 'name_t_double_space',
         ];
 
         $this->assertEquals($expected, $actual);
