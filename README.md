@@ -14,8 +14,7 @@ Translatable String Exporter is aimed to collect all translatable strings of an 
 composer require kkomelin/laravel-translatable-string-exporter
 ```
 
-2. For **Laravel >= 5.5** we use Package Auto-Discovery, so you may skip this step.
-   For **Laravel < 5.5**, add `ExporterServiceProvider` to the providers array in config/app.php:
+2. [**Laravel < 5.5** only] Add `ExporterServiceProvider` to the providers array in config/app.php:
 
 ```php
 KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
