@@ -31,6 +31,10 @@ class CodeParser
                '@lang'
            ]);
         $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
+
+        if (config('laravel-translatable-string-exporter.allow-newlines')) {
+            $this->pattern .= 's';
+        }
     }
 
     /**

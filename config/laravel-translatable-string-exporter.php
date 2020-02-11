@@ -12,6 +12,9 @@ return [
         '*.js',
     ],
 
+    // Indicates weather new lines are allowed in translations.
+    'allow-newlines' => false,
+
     // Translation function names.
     // If your function name contains $ escape it using \$ .
     'functions'=> [
