@@ -93,7 +93,7 @@ class ExporterTest extends BaseTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testMultiLineDefaultSettingsTranslations()
+    public function testMultiLineSupportDisabled()
     {
         $this->cleanLangsFolder();
 
@@ -121,7 +121,7 @@ class ExporterTest extends BaseTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testMultiLineSettingsTranslations()
+    public function testMultiLineSupportEnabled()
     {
         $this->app['config']->set('laravel-translatable-string-exporter.allow-newlines', true);
 
