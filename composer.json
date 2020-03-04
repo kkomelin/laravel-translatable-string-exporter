@@ -10,9 +10,9 @@
   "require": {
     "php": ">=5.4.0",
     "ext-json": "*",
-    "illuminate/support": "^5.4|^6",
-    "illuminate/translation": "^5.4|^6",
-    "symfony/finder": "^3.2|^4.0"
+    "illuminate/support": "^5.4|^6|^7",
+    "illuminate/translation": "^5.4|^6|^7",
+    "symfony/finder": "^3.2|^4|^5"
   },
   "autoload": {
     "psr-4": {
@@ -33,7 +33,7 @@
   },
   "minimum-stability": "stable",
   "require-dev": {
-    "orchestra/testbench": "~3.0",
+    "orchestra/testbench": "~3.0|^4.0|^5.0",
     "mockery/mockery": "^1.0"
   }
 }
