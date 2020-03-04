@@ -20,4 +20,4 @@ before_script:
   - composer update
 
 script:
-  - phpunit
+  - ./vendor/bin/phpunit
