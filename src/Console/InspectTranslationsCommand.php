@@ -2,6 +2,7 @@
 namespace KKomelin\TranslatableStringExporter\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use KKomelin\TranslatableStringExporter\Core\Exporter;
 use KKomelin\TranslatableStringExporter\Core\StringExtractor;
 use KKomelin\TranslatableStringExporter\Core\UntranslatedStringFinder;
@@ -89,7 +90,7 @@ class InspectTranslationsCommand extends Command
         // Display untranslated strings.
         $this->info(
             'Found ' . $count_untranslated . ' untranslated ' .
-            \Str::plural('string', $count_untranslated) . ' in the ' .
+            Str::plural('string', $count_untranslated) . ' in the ' .
             $language . '.json file:'
         );
         foreach ($untranslated_strings as $untranslated_string) {
