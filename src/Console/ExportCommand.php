@@ -1,4 +1,5 @@
 <?php
+
 namespace KKomelin\TranslatableStringExporter\Console;
 
 use Illuminate\Console\Command;
@@ -8,7 +9,6 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class ExportCommand extends Command
 {
-
     /**
      * The console command name.
      *
