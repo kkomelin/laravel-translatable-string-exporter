@@ -23,16 +23,14 @@ class FileFinder
      */
     public function __construct()
     {
-        $this->directories = config('laravel-translatable-string-exporter.directories',
-            [
-                'app',
-                'resources',
-            ]);
-        $this->patterns = config('laravel-translatable-string-exporter.patterns',
-            [
-                '*.php',
-                '*.js'
-            ]);
+        $this->directories = config('laravel-translatable-string-exporter.directories', [
+            'app',
+            'resources',
+        ]);
+        $this->patterns = config('laravel-translatable-string-exporter.patterns', [
+            '*.php',
+            '*.js'
+        ]);
     }
 
     /**
