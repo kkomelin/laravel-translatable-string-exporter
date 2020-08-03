@@ -29,7 +29,7 @@ class FileFinder
         ]);
         $this->patterns = config('laravel-translatable-string-exporter.patterns', [
             '*.php',
-            '*.js'
+            '*.js',
         ]);
     }
 
