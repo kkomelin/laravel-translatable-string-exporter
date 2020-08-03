@@ -16,7 +16,7 @@ class CodeParser
      *
      * @var string
      */
-    protected $tpl = "/([FUNCTIONS])\(\h*(?:(?<!\\\\)\\[QUOTE])((?:[^\[QUOTE]]|\\[QUOTE])+)(?:(?<!\\\\)\\[QUOTE])\h*[\),]/U";
+    protected $tpl = "/([FUNCTIONS])\(\s*(?:(?<!\\\\)\\[QUOTE])((?:[^\[QUOTE]]|\\[QUOTE])+)(?:(?<!\\\\)\\[QUOTE])\s*[\),]/U";
 
     /**
      * Translation function patterns.
