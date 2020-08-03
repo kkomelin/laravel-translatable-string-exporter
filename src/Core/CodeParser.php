@@ -12,29 +12,30 @@ class CodeParser
     protected $functions;
 
     /**
-     * Translation function pattern.
+     * Translation function patterns template.
      *
      * @var string
      */
-    protected $pattern = '/([FUNCTIONS])\(\h*[\'"](.+)[\'"]\h*[\),]/U';
+    protected $tpl = "/([FUNCTIONS])\(\h*(?:(?<!\\\\)\\[QUOTE])((?:[^\[QUOTE]]|\\[QUOTE])+)(?:(?<!\\\\)\\[QUOTE])\h*[\),]/U";
 
+    /**
+     * Translation function patterns.
+     *
+     * @var array
+     */
+    protected $patterns = [];
 
     /**
      * Parser constructor.
      */
     public function __construct()
     {
-        $this->functions = config('laravel-translatable-string-exporter.functions',
-           [
-               '__',
-               '_t',
-               '@lang'
-           ]);
-        $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
+        $this->functions = config('laravel-translatable-string-exporter.functions', [
+            '__', '_t', '@lang',
+        ]);
 
-        if (config('laravel-translatable-string-exporter.allow-newlines', false)) {
-            $this->pattern .= 's';
-        }
+        $this->patterns[] = str_replace(['[FUNCTIONS]', '[QUOTE]'], [implode('|', $this->functions), "'"], $this->tpl);
+        $this->patterns[] = str_replace(['[FUNCTIONS]', '[QUOTE]'], [implode('|', $this->functions), '"'], $this->tpl);
     }
 
     /**
@@ -47,12 +48,16 @@ class CodeParser
     {
         $strings = [];
 
-        if(!preg_match_all($this->pattern, $file->getContents(), $matches)) {
-            return $strings;
+        foreach ($this->patterns as $pattern) {
+            if (preg_match_all($pattern, $file->getContents(), $matches)) {
+                foreach ($matches[2] as $string) {
+                    $strings[] = $string;
+                }
+            }
         }
 
-        foreach ($matches[2] as $string) {
-            $strings[] = $string;
+        if (empty($strings)) {
+            return [];
         }
 
         // Remove duplicates.
