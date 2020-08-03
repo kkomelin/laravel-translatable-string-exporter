@@ -93,48 +93,20 @@ class ExporterTest extends BaseTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testMultiLineSupportDisabled()
+    public function testMultiLineSupport()
     {
-        $this->cleanLangsFolder();
-
-        $view = "{{ __('single line') }} " .
-            "{{ __('translation.keys') }} " .
-            // Verify legacy behaviours:
-            // 1) Strings including escaped newlines (\n) are processed
-            "{{ __('escaped\\nnewline') }}" .
-            // 2) Strings including un-escaped newlines are ignored.
-            "{{ __(\"ignored\nmultiple\nline\nstring\") }}";
-
-        $this->createTestView($view);
-
-        $this->artisan('translatable:export', ['lang' => 'es'])
-            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
-            ->assertExitCode(0);
-
-        $actual = $this->getTranslationFileContent('es');
-        $expected = [
-            'single line' => 'single line',
-            'translation.keys' => 'translation.keys',
-            'escaped\\nnewline' => 'escaped\\nnewline',
-        ];
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testMultiLineSupportEnabled()
-    {
-        $this->app['config']->set('laravel-translatable-string-exporter.allow-newlines', true);
-
         $this->cleanLangsFolder();
 
         $view = "{{ __('single line') }} " .
                 "{{ __('translation.keys') }} " .
-            // No change to 1st legacy behaviour:
-            // 1) Strings including escaped newlines (\n) are processed
-            "{{ __('escaped\\nnewline') }}" .
-            // Un-escaped newlines are now also processed.
-            // 2) Strings including un-escaped newlines are ignored.
-            "{{ __(\"detected\nmultiple\nline\nstring\") }}";
+                // No change to 1st legacy behaviour:
+                // 1) Strings including escaped newlines (\n) are processed
+                "{{ __('escaped\\nnewline') }}" .
+                // Un-escaped newlines are now also processed.
+                // 2) Strings including un-escaped newlines are processed.
+                "{{ __(\"multiple\nline\nstring\") }}" .
+                // 3) Functions including newlines are processed.
+                "{{ __(\n\"multiple\nline\nfunction\"\n) }}";
 
         $this->createTestView($view);
 
@@ -147,7 +119,8 @@ class ExporterTest extends BaseTestCase
             'single line' => 'single line',
             'translation.keys' => 'translation.keys',
             'escaped\nnewline' => 'escaped\nnewline',
-            "detected\nmultiple\nline\nstring" => "detected\nmultiple\nline\nstring",
+            "multiple\nline\nstring" => "multiple\nline\nstring",
+            "multiple\nline\nfunction" => "multiple\nline\nfunction",
         ];
 
         $this->assertEquals($expected, $actual);
