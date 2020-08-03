@@ -1,4 +1,5 @@
 <?php
+
 namespace KKomelin\TranslatableStringExporter\Console;
 
 use Illuminate\Console\Command;
@@ -10,7 +11,6 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class InspectTranslationsCommand extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
