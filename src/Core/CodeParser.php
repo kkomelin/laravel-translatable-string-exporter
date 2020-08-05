@@ -53,7 +53,7 @@ class CodeParser
         foreach ($this->patterns as $pattern) {
             if (preg_match_all($pattern, $file->getContents(), $matches)) {
                 foreach ($matches[2] as $string) {
-                    $strings[] = stripslashes($string);
+                    $strings[] = stripcslashes($string);
                 }
             }
         }
