@@ -31,7 +31,9 @@ class CodeParser
     public function __construct()
     {
         $this->functions = config('laravel-translatable-string-exporter.functions', [
-            '__', '_t', '@lang',
+            '__',
+            '_t',
+            '@lang',
         ]);
 
         $this->patterns[] = str_replace(['[FUNCTIONS]', '[QUOTE]'], [implode('|', $this->functions), "'"], $this->tpl);
@@ -51,7 +53,7 @@ class CodeParser
         foreach ($this->patterns as $pattern) {
             if (preg_match_all($pattern, $file->getContents(), $matches)) {
                 foreach ($matches[2] as $string) {
-                    $strings[] = $string;
+                    $strings[] = stripslashes($string);
                 }
             }
         }
