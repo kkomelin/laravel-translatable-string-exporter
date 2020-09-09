@@ -1,4 +1,4 @@
-# Translatable String Exporter for Laravel >= 5.4
+# Translatable String Exporter for Laravel
 
 [![Build Status](https://travis-ci.com/kkomelin/laravel-translatable-string-exporter.svg?branch=master)](https://travis-ci.com/kkomelin/laravel-translatable-string-exporter)
 
@@ -95,4 +95,4 @@ In order for those, manually added, strings not to get removed the next time you
 
 ## License & Copyright
 
-MIT, (c) 2018 Konstantin Komelin
+[MIT](https://github.com/kkomelin/laravel-translatable-string-exporter/blob/master/LICENSE), (c) 2017 Konstantin Komelin
