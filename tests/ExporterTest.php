@@ -255,4 +255,29 @@ class ExporterTest extends BaseTestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testOverridePatterns()
+    {
+        $this->cleanLangsFolder();
+
+        $this->createTestView("{{ __('name') }}");
+        $this->createTestTypescript("__('name1')");
+
+        $this->artisan('translatable:export', [
+                'lang'      => 'bg,es',
+                '--patterns'  => '*.ts'
+            ])
+            ->expectsOutput('Translatable strings have been extracted and written to the bg.json file.')
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $this->assertFileExists($this->getTranslationFilePath('bg'));
+        $this->assertFileExists($this->getTranslationFilePath('es'));
+
+        $bg_content = $this->getTranslationFileContent('bg');
+        $es_content = $this->getTranslationFileContent('es');
+
+        $this->assertEquals(['name1' => 'name1'], $bg_content);
+        $this->assertEquals(['name1' => 'name1'], $es_content);
+    }
 }

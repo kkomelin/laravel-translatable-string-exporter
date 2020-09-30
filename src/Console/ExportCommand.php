@@ -2,9 +2,10 @@
 namespace KKomelin\TranslatableStringExporter\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 use KKomelin\TranslatableStringExporter\Core\Exporter;
 use KKomelin\TranslatableStringExporter\Core\StringExtractor;
-use Symfony\Component\Console\Input\InputArgument;
 
 class ExportCommand extends Command
 {
@@ -61,9 +62,14 @@ class ExportCommand extends Command
     public function handle()
     {
         $languages = explode(',', $this->argument('lang'));
+        $patterns = null;
+
+        if($this->option('patterns')) {
+            $patterns = explode(',', $this->option('patterns'));
+        }
 
         foreach ($languages as $language) {
-            $this->exporter->export(base_path(), $language);
+            $this->exporter->export(base_path(), $language, $patterns);
 
             $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
         }
@@ -81,7 +87,24 @@ class ExportCommand extends Command
                 'lang',
                 InputArgument::REQUIRED,
                 'A language code or a comma-separated list of language codes for which the translatable strings are extracted, e.g. "es" or "es,bg,de".'
-            ],
+            ]
+        ];
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            [
+                'patterns',
+                'p',
+                InputOption::VALUE_OPTIONAL,
+                'Override the default patterns and use the given instead, e.g. --patterns="*.php,*.js".'
+            ]
         ];
     }
 }

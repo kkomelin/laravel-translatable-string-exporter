@@ -43,6 +43,11 @@ class BaseTestCase extends TestCase
         file_put_contents(resource_path('views/index.blade.php'), $content);
     }
 
+    protected function createTestTypescript($content)
+    {
+        file_put_contents(resource_path('ts/index.ts'), $content);
+    }
+
     protected function getTranslationFilePath($language)
     {
         return resource_path('lang/' . $language . '.json');

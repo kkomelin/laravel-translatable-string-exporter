@@ -15,8 +15,14 @@ class StringExtractor
 
     /**
      * Extract translatable strings from the project files.
+     * 
+     * @param array $patterns
      */
-    public function extract() {
+    public function extract(array $patterns=null) {
+
+        if($patterns) {
+            $this->finder->setPatterns($patterns);
+        }
 
         $strings = [];
 
