@@ -52,6 +52,9 @@ class Exporter
             IO::languageFilePath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
         $persistent_strings = IO::readTranslationFile($persistent_strings_path);
 
+        //if enabled import persistent string to translation file
+        $new_strings = $this->addPersistentStringIfEnabled($new_strings, $persistent_strings);
+
         // Merge old an new translations preserving existing translations and persistent strings.
         $resulting_strings = $this->mergeStrings($new_strings, $existing_strings, $persistent_strings);
 
@@ -95,6 +98,21 @@ class Exporter
         }
 
         return $strings;
+    }
+
+    /**
+     * Also add keys from persistent-string file to new_string.
+     *
+     * @param array $new_strings
+     * @param array $persistent_strings
+     * @return array
+     */
+    protected function addPersistentStringIfEnabled($new_strings, $persistent_strings) {
+        if (config('laravel-translatable-string-exporter.add-persistent-strings', false)) {
+            $new_strings = array_merge($new_strings, array_combine($persistent_strings, $persistent_strings));
+        }
+
+        return $new_strings;
     }
 
     /**
