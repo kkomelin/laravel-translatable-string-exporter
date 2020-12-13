@@ -27,4 +27,8 @@ return [
     // by original strings (keys).
     // It helps navigate a translation file and detect possible duplicates.
     'sort-keys' => true,
+
+    // Indicates weather keys added to persistent-strings file should be added
+    // to translation file
+    'add-persistent-strings' => false,
 ];
