@@ -12,7 +12,7 @@ return [
         '*.js',
     ],
 
-    // Indicates weather new lines are allowed in translations.
+    // Indicates whether new lines are allowed in translations.
     'allow-newlines' => false,
 
     // Translation function names.
@@ -23,12 +23,12 @@ return [
         '@lang',
     ],
 
-    // Indicates weather you need to sort the translations alphabetically 
+    // Indicates whether you need to sort the translations alphabetically 
     // by original strings (keys).
     // It helps navigate a translation file and detect possible duplicates.
     'sort-keys' => true,
 
-    // Indicates weather keys added to persistent-strings file should be added
-    // to translation file
-    'add-persistent-strings' => false,
+    // Indicates whether keys from the persistent-strings file should be also added
+    // to translation files automatically on export if they don't yet exist there.
+    'add-persistent-strings-to-translations' => false,
 ];

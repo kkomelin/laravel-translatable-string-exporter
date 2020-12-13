@@ -256,9 +256,12 @@ class ExporterTest extends BaseTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testAlsoAddPersistentTranslations()
+    public function testAddingPersistentStringsToExport()
     {
-        $this->app['config']->set('laravel-translatable-string-exporter.add-persistent-strings', true);
+        $this->app['config']->set(
+            'laravel-translatable-string-exporter.add-persistent-strings-to-translations',
+            true
+        );
 
         $this->cleanLangsFolder();
 
@@ -274,12 +277,13 @@ class ExporterTest extends BaseTestCase
 
         $this->writeToTranslationFile('es', $content);
 
-        // 2. Create a file with the keys of any strings which should persist and added to export file even if they are not contained in the views.
+        // 2. Create a file with the keys of any strings which should persist
+        // even if they are not contained in the views.
 
         $persistentContent = json_encode(['name3_en', 'name5_en']);
         $this->writeToTranslationFile(Exporter::PERSISTENT_STRINGS_FILENAME_WO_EXT, $persistentContent);
 
-        // 3. Create a test view only containing a new string and a string that also in persistent.
+        // 3. Create a test view only containing a new string and a string that is also in persistent strings.
 
         $this->createTestView("{{ __('name1_en') . __('name2_en') . __('name3_en') . __('name4_en') }}");
 
@@ -289,17 +293,13 @@ class ExporterTest extends BaseTestCase
 
         $actual = $this->getTranslationFileContent('es');
 
-        // The new and persistent, strings should be added. The rest should remain.
+        // The new and persistent strings should be added. The rest should remain.
 
-        $expected = [
-            'name1_en' => 'name1_es',
-            'name2_en' => 'name2_es',
-            'name3_en' => 'name3_es',
+        $expected = array_merge($existing_translations, [
             'name4_en' => 'name4_en',
             'name5_en' => 'name5_en',
-        ];
+        ]);
 
         $this->assertEquals($expected, $actual);
-
     }
 }
