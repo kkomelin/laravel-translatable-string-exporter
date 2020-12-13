@@ -2,6 +2,8 @@
 
 namespace KKomelin\TranslatableStringExporter\Core;
 
+use Symfony\Component\Finder\SplFileInfo;
+
 class CodeParser
 {
     /**
@@ -40,10 +42,10 @@ class CodeParser
     /**
      * Parse a file in order to find translatable strings.
      *
-     * @param \Symfony\Component\Finder\SplFileInfo $file
+     * @param SplFileInfo $file
      * @return array
      */
-    public function parse(\Symfony\Component\Finder\SplFileInfo $file)
+    public function parse(SplFileInfo $file)
     {
         $strings = [];
 

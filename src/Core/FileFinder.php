@@ -2,6 +2,8 @@
 
 namespace KKomelin\TranslatableStringExporter\Core;
 
+use Symfony\Component\Finder\Finder;
+
 class FileFinder
 {
     /**
@@ -38,7 +40,7 @@ class FileFinder
     /**
      * Find all files that can contain translatable strings.
      *
-     * @return \Symfony\Component\Finder\Finder|null
+     * @return Finder|null
      */
     public function find()
     {
@@ -49,7 +51,7 @@ class FileFinder
             $item = $path . DIRECTORY_SEPARATOR . $item;
         });
 
-        $finder = new \Symfony\Component\Finder\Finder();
+        $finder = new Finder();
 
         $finder = $finder->in($directories);
 

@@ -35,7 +35,6 @@ class Exporter
      *
      * @param string $base_path
      * @param string $language
-     * @return array
      */
     public function export($base_path, $language)
     {
