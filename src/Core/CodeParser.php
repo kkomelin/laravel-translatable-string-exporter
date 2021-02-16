@@ -18,7 +18,7 @@ class CodeParser
      *
      * @var string
      */
-    protected $pattern = '/([FUNCTIONS])\(\h*[\'"](.+)[\'"]\h*[\),]/U';
+    protected $pattern = '/([FUNCTIONS])\(\h*([\'"])(.+)\2\h*[\),]/U';
 
 
     /**
@@ -53,7 +53,7 @@ class CodeParser
             return $this->clean($strings);
         }
 
-        foreach ($matches[2] as $string) {
+        foreach ($matches[3] as $string) {
             $strings[] = $string;
         }
 

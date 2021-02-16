@@ -134,9 +134,12 @@ class ExporterTest extends BaseTestCase
 
         $view = "{{ __('He said \"WOW\".') }} " .
             "{{ __('We\'re amazing!') }} " .
-            "@lang(\"You're pretty great!\") ";
+            "@lang(\"You're pretty great!\") " .
+            "@lang(\"You\"re pretty great!\") " .
+            "{{ __('Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.') }}";
 
-        $this->createTestView($view);
+
+    $this->createTestView($view);
 
         $this->artisan('translatable:export', ['lang' => 'es'])
             ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
@@ -148,6 +151,8 @@ class ExporterTest extends BaseTestCase
             'He said "WOW".' => 'He said "WOW".',
             'You\'re pretty great!' => 'You\'re pretty great!',
             'We\'re amazing!' => 'We\'re amazing!',
+            'You"re pretty great!' => 'You"re pretty great!',
+            'Therefore, we automatically look for columns named something like "Last name", "First name", "E-mail" etc.' => 'Therefore, we automatically look for columns named something like "Last name", "First name", "E-mail" etc.'
         ];
 
         $this->assertEquals($expected, $actual);
