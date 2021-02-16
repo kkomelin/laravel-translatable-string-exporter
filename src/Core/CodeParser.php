@@ -50,7 +50,7 @@ class CodeParser
         $strings = [];
 
         if(!preg_match_all($this->pattern, $file->getContents(), $matches)) {
-            return $strings;
+            return $this->clean($strings);
         }
 
         foreach ($matches[2] as $string) {
@@ -60,6 +60,22 @@ class CodeParser
         // Remove duplicates.
         $strings = array_unique($strings);
 
-        return $strings;
+        return $this->clean($strings);
+    }
+
+    /**
+     * Provide extra clean up step
+     * Used for instances of {{ __('We\'re amazing!') }}
+     * Without clean up: We\'re amazing!
+     * With clean up: We're amazing!
+     *
+     * @param array $strings
+     * @return array
+     */
+    public function clean(array $strings)
+    {
+        return array_map(function ($string){
+            return str_replace('\\\'', '\'', $string);
+        }, $strings);
     }
 }
