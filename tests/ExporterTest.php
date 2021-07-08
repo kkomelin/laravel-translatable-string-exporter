@@ -315,6 +315,7 @@ class ExporterTest extends BaseTestCase
             "{{ __('string with a dot. in the middle') }} " .
             "{{ __('menu.unknown') }} " .
             "{{ __('menu.submenu1') }} " .
+            "{{ __('menu.submenu1.item1') }} " .
             "{{ __('menu.item1') }} ";
 
         $this->createTestView($view);

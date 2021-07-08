@@ -31,4 +31,11 @@ return [
     // Indicates whether keys from the persistent-strings file should be also added
     // to translation files automatically on export if they don't yet exist there.
     'add-persistent-strings-to-translations' => false,
+
+    // Indicates whether it's necessary to exclude Laravel translation keys
+    // from the resulting language file if they have corresponding translations
+    // in the given language.
+    // This option allows correctly combine two translation approaches:
+    // Laravel translation keys (PHP) and translatable strings (JSON).
+    'ignore-translation-keys' => false,
 ];
