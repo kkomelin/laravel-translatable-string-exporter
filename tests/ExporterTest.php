@@ -305,7 +305,7 @@ class ExporterTest extends BaseTestCase
 
     public function testIgnoreTranslationKeysEnabled()
     {
-        $this->app['config']->set('laravel-translatable-string-exporter.ignore-translation-keys', true);
+        $this->app['config']->set('laravel-translatable-string-exporter.exclude-translation-keys', true);
 
         $this->cleanLangsFolder();
         $this->createSpanishPHPTranslationFile();

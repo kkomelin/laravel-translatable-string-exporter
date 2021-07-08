@@ -37,5 +37,5 @@ return [
     // in the given language.
     // This option allows correctly combine two translation approaches:
     // Laravel translation keys (PHP) and translatable strings (JSON).
-    'ignore-translation-keys' => false,
+    'exclude-translation-keys' => false,
 ];

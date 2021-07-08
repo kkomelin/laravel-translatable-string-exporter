@@ -130,7 +130,7 @@ class Exporter
      * @return array|mixed
      */
     protected function excludeTranslationKeysIfEnabled($translatable_strings, $language) {
-        if (config('laravel-translatable-string-exporter.ignore-translation-keys', false)) {
+        if (config('laravel-translatable-string-exporter.exclude-translation-keys', false)) {
             foreach ($translatable_strings as $key => $value) {
                 if ($this->isTranslationKey($key, $language)) {
                     unset($translatable_strings[$key]);
