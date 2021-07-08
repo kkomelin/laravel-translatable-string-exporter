@@ -308,6 +308,7 @@ class ExporterTest extends BaseTestCase
         $this->app['config']->set('laravel-translatable-string-exporter.ignore-translation-keys', true);
 
         $this->cleanLangsFolder();
+        $this->createSpanishPHPTranslationFile();
 
         $view = "{{ __('text to translate') }} " .
             "{{ __('string with a dot.') }} " .
@@ -332,5 +333,21 @@ class ExporterTest extends BaseTestCase
         ];
 
         $this->assertEquals($expected, $actual);
+    }
+
+    private function createSpanishPHPTranslationFile() {
+        $content = <<< TRANSLATIONS
+<?php
+
+return [
+    'item1' => 'Item 1',
+    'submenu1' => [
+        'item1' => 'Submenu 1: Item 1'
+    ]
+];
+
+TRANSLATIONS;
+
+        file_put_contents(resource_path('lang/es/menu.php'), $content);
     }
 }
