@@ -58,8 +58,6 @@ class CodeParser
         }
 
         // Remove duplicates.
-        $strings = array_unique($strings);
-
-        return $strings;
+        return array_unique($strings);
     }
 }

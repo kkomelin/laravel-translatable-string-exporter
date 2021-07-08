@@ -3,6 +3,7 @@
 namespace KKomelin\TranslatableStringExporter\Core;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
 use KKomelin\TranslatableStringExporter\Core\Utils\IO;
 
@@ -56,6 +57,9 @@ class Exporter
 
         // Merge old an new translations preserving existing translations and persistent strings.
         $resulting_strings = $this->mergeStrings($new_strings, $existing_strings, $persistent_strings);
+
+        // Exclude translation keys if enabled through the config.
+        $resulting_strings = $this->excludeTranslationKeysIfEnabled($resulting_strings, $language);
 
         // Sort the translations if enabled through the config.
         $sorted_strings = $this->sortIfEnabled($resulting_strings);
@@ -118,6 +122,26 @@ class Exporter
     }
 
     /**
+     * Exclude Laravel translation keys from the array
+     * if they have corresponding translations in the given language.
+     *
+     * @param $translatable_strings
+     * @param $language
+     * @return array|mixed
+     */
+    protected function excludeTranslationKeysIfEnabled($translatable_strings, $language) {
+        if (config('laravel-translatable-string-exporter.ignore-translation-keys', false)) {
+            foreach ($translatable_strings as $key => $value) {
+                if ($this->isTranslationKey($key, $language)) {
+                    unset($translatable_strings[$key]);
+                }
+            }
+        }
+
+        return $translatable_strings;
+    }
+
+    /**
      * Filtering an array by its keys using a callback.
      * Supports PHP < 5.6.0. Use array_filter($array, $callback, ARRAY_FILTER_USE_KEY) instead
      * if you don't need to support earlier versions.
@@ -138,5 +162,43 @@ class Exporter
     {
         $matchedKeys = array_filter(array_keys($array), $callback);
         return array_intersect_key($array, array_flip($matchedKeys));
+    }
+
+    /**
+     * Check if the given translatable string is a translation key and has a translation.
+     * The translation keys are ignored if the corresponding option is set through the config.
+     *
+     * @param $key
+     * @param $locale
+     * @return bool
+     */
+    private function isTranslationKey($key, $locale) {
+
+        $dot_position = strpos($key, '.');
+
+        // Ignore string without dots.
+        if ($dot_position === false) {
+            return false;
+        }
+
+        // Ignore strings where the dot is at the end of a string
+        // because it's a normal sentence.
+        if($dot_position === (strlen($key) - 1)) {
+            return false;
+        }
+
+        $segments = explode('.', $key);
+
+        // Everything but last segment determines a group.
+
+        $key = array_pop($segments);
+        $group = implode('.', $segments);
+
+        $translations = Lang::get($group, [], $locale);
+
+        // If the received translation is an array, the initial translation key is not full,
+        // so we consider it wrong.
+
+        return isset($translations[$key]) && !is_array($translations[$key]);
     }
 }

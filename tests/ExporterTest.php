@@ -302,4 +302,35 @@ class ExporterTest extends BaseTestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testIgnoreTranslationKeysEnabled()
+    {
+        $this->app['config']->set('laravel-translatable-string-exporter.ignore-translation-keys', true);
+
+        $this->cleanLangsFolder();
+
+        $view = "{{ __('text to translate') }} " .
+            "{{ __('string with a dot.') }} " .
+            "{{ __('string with a dot. in the middle') }} " .
+            "{{ __('menu.unknown') }} " .
+            "{{ __('menu.submenu1') }} " .
+            "{{ __('menu.item1') }} ";
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'text to translate' => 'text to translate',
+            'string with a dot.' => 'string with a dot.',
+            'string with a dot. in the middle' => 'string with a dot. in the middle',
+            'menu.unknown' => 'menu.unknown',
+            'menu.submenu1' => 'menu.submenu1'
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
 }
