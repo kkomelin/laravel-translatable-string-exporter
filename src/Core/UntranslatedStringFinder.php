@@ -7,7 +7,7 @@ use KKomelin\TranslatableStringExporter\Core\Utils\IO;
 class UntranslatedStringFinder
 {
     /**
-     * Find untranslatable strings in a language file.
+     * Find untranslated strings in a language file.
      *
      * @param string $base_path
      * @param string $language

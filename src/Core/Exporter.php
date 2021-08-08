@@ -61,8 +61,8 @@ class Exporter
         // Exclude translation keys if enabled through the config.
         $resulting_strings = $this->excludeTranslationKeysIfEnabled($resulting_strings, $language);
 
-        // Sort the translations if enabled through the config.
-        $sorted_strings = $this->sortIfEnabled($resulting_strings);
+        // Wisely sort the translations if enabled through the config.
+        $sorted_strings = $this->advancedSortIfEnabled($resulting_strings);
 
         // Prepare JSON string and dump it to the translation file.
         $content = JSON::jsonEncode($sorted_strings);
@@ -139,6 +139,38 @@ class Exporter
         }
 
         return $translatable_strings;
+    }
+
+    /**
+     * Wisely sort translatable strings if this option is enabled through the config.
+     * If it's requested (through the config) to put untranslated strings
+     * at the top of the translation file, then untranslated and translated strings
+     * are sorted separately.
+     *
+     * @param $translatable_strings
+     * @return array
+     */
+    protected function advancedSortIfEnabled($translatable_strings) {
+        // If it's necessary to put untranslated strings at the top.
+        if (config('laravel-translatable-string-exporter.put-untranslated-strings-at-the-top', false)) {
+            $translated = [];
+            $untranslated = [];
+            foreach ($translatable_strings as $key => $value) {
+                if ($key === $value) {
+                    $untranslated[$key] = $value;
+                    continue;
+                }
+                $translated[$key] = $value;
+            }
+
+            $translated = $this->sortIfEnabled($translated);
+            $untranslated = $this->sortIfEnabled($untranslated);
+
+            return array_merge($untranslated, $translated);
+        }
+
+        // Sort the translations if enabled through the config.
+        return $this->sortIfEnabled($translatable_strings);
     }
 
     /**

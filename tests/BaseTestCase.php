@@ -28,7 +28,7 @@ class BaseTestCase extends TestCase
         ]);
     }
 
-    protected function cleanLangsFolder()
+    protected function removeJsonLanguageFiles()
     {
         $files = glob(base_path('resources/lang/*.json')); // get all file names
         foreach ($files as $file) { // iterate files

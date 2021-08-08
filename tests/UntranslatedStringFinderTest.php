@@ -9,7 +9,7 @@ class UntranslatedStringFinderTest extends BaseTestCase
 
     public function testFileDoesntExist()
     {
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $language = 'fr';
         $command = $this->artisan('translatable:inspect-translations', [
@@ -22,7 +22,7 @@ class UntranslatedStringFinderTest extends BaseTestCase
 
     public function testExportAndInspect()
     {
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $source = [
             'name3',

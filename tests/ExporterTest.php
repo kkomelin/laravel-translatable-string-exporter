@@ -8,7 +8,7 @@ class ExporterTest extends BaseTestCase
 {
     public function testTranslationFilesCreation()
     {
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $this->createTestView("{{ __('name') }}");
 
@@ -30,7 +30,7 @@ class ExporterTest extends BaseTestCase
     public function testTranslationSorting()
     {
 
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $source = [
             'name3',
@@ -62,7 +62,7 @@ class ExporterTest extends BaseTestCase
     public function testTranslationFunctionNames()
     {
 
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $view = "{{ __('name__') }} " .
             "@lang('name_lang') " .
@@ -95,7 +95,7 @@ class ExporterTest extends BaseTestCase
 
     public function testMultiLineSupportDisabled()
     {
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $view = "{{ __('single line') }} " .
             "{{ __('translation.keys') }} " .
@@ -125,7 +125,7 @@ class ExporterTest extends BaseTestCase
     {
         $this->app['config']->set('laravel-translatable-string-exporter.allow-newlines', true);
 
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $view = "{{ __('single line') }} " .
                 "{{ __('translation.keys') }} " .
@@ -155,7 +155,7 @@ class ExporterTest extends BaseTestCase
 
     public function testUpdatingTranslations()
     {
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         // Create a translation file ourselves.
 
@@ -216,7 +216,7 @@ class ExporterTest extends BaseTestCase
 
     public function testPersistentTranslations()
     {
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         // 1. Create a translation file ourselves.
 
@@ -263,7 +263,7 @@ class ExporterTest extends BaseTestCase
             true
         );
 
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         // 1. Create a translation file ourselves.
 
@@ -307,7 +307,7 @@ class ExporterTest extends BaseTestCase
     {
         $this->app['config']->set('laravel-translatable-string-exporter.exclude-translation-keys', true);
 
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $view = "{{ __('text to translate') }} " .
             "{{ __('string with a dot.') }} " .
@@ -333,5 +333,73 @@ class ExporterTest extends BaseTestCase
         ];
 
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testPuttingUntranslatedStringsToTop()
+    {
+        $this->app['config']->set(
+            'laravel-translatable-string-exporter.put-untranslated-strings-at-the-top',
+            true
+        );
+
+        $this->removeJsonLanguageFiles();
+
+        // 1. Create a translation file with all srings translated.
+
+        $existing_translations = [
+            'name1_en' => 'name1_es',
+            'name2_en' => 'name2_es',
+            'name3_en' => 'name3_es',
+        ];
+
+        $content = json_encode($existing_translations);
+
+        $this->writeToTranslationFile('es', $content);
+
+        // 2. [Sorting disabled] Create a test view with translated and untranslated strings.
+
+        $this->app['config']->set(
+            'laravel-translatable-string-exporter.sort-keys',
+            false
+        );
+
+        $this->createTestView("{{ __('name1_en') . __('name2_en') . __('name3_en') . __('name5_en') . __('name4_en') }}");
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+
+        $expected = array_merge([
+            'name5_en' => 'name5_en',
+            'name4_en' => 'name4_en',
+        ], $existing_translations);
+
+        // Check that arrays are equivalent taking into account element order.
+        $this->assertTrue($expected === $actual, 'Expected and actual arrays are not equivalent.');
+
+        // 3. [Sorting enabled] Create a test view with translated and untranslated strings.
+
+        $this->app['config']->set(
+            'laravel-translatable-string-exporter.sort-keys',
+            true
+        );
+
+        $this->createTestView("{{ __('name1_en') . __('name2_en') . __('name3_en') . __('name5_en') . __('name4_en') }}");
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+
+        $expected = array_merge([
+            'name4_en' => 'name4_en',
+            'name5_en' => 'name5_en',
+        ], $existing_translations);
+
+        // Check that arrays are equivalent taking into account element order.
+        $this->assertTrue($expected === $actual, 'Expected and actual arrays are not equivalent.');
     }
 }
