@@ -96,7 +96,7 @@ class ExporterTest extends BaseTestCase
     public function testQuotationMarkDelimiter()
     {
 
-        $this->cleanLangsFolder();
+        $this->removeJsonLanguageFiles();
 
         $view = "{{ __(\"name__\") }} " .
             "@lang(\"name_lang\") " .
@@ -129,8 +129,8 @@ class ExporterTest extends BaseTestCase
 
     public function testMixedDelimiters()
     {
-
-        $this->cleanLangsFolder();
+        
+        $this->removeJsonLanguageFiles();
 
         $view = "{{ __('He said \"WOW\".') }} " .
             "{{ __('We\'re amazing!') }} " .
@@ -138,8 +138,7 @@ class ExporterTest extends BaseTestCase
             "@lang(\"You\"re pretty great!\") " .
             "{{ __('Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.') }}";
 
-
-    $this->createTestView($view);
+        $this->createTestView($view);
 
         $this->artisan('translatable:export', ['lang' => 'es'])
             ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
