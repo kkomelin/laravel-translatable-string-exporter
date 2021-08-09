@@ -93,6 +93,71 @@ class ExporterTest extends BaseTestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testQuotationMarkDelimiter()
+    {
+
+        $this->cleanLangsFolder();
+
+        $view = "{{ __(\"name__\") }} " .
+            "@lang(\"name_lang\") " .
+            "{{ _t(\"name_t\") }} " .
+            "{{ __(\"name__space_end\" ) }} " .
+            "@lang( \"name_lang_space_start\") " .
+            "{{ _t( \"name_t_space_both\" ) }} " .
+            "{{ _t(  \"name_t_double_space\"  ) }}";
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+
+        $expected = [
+            'name__' => 'name__',
+            'name_lang' => 'name_lang',
+            'name_t' => 'name_t',
+            'name__space_end' => 'name__space_end',
+            'name_lang_space_start' => 'name_lang_space_start',
+            'name_t_space_both' => 'name_t_space_both',
+            'name_t_double_space' => 'name_t_double_space',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testMixedDelimiters()
+    {
+
+        $this->cleanLangsFolder();
+
+        $view = "{{ __('He said \"WOW\".') }} " .
+            "{{ __('We\'re amazing!') }} " .
+            "@lang(\"You're pretty great!\") " .
+            "@lang(\"You\"re pretty great!\") " .
+            "{{ __('Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.') }}";
+
+
+    $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+
+        $expected = [
+            'He said "WOW".' => 'He said "WOW".',
+            'You\'re pretty great!' => 'You\'re pretty great!',
+            'We\'re amazing!' => 'We\'re amazing!',
+            'You"re pretty great!' => 'You"re pretty great!',
+            'Therefore, we automatically look for columns named something like "Last name", "First name", "E-mail" etc.' => 'Therefore, we automatically look for columns named something like "Last name", "First name", "E-mail" etc.'
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testMultiLineSupportDisabled()
     {
         $this->removeJsonLanguageFiles();
