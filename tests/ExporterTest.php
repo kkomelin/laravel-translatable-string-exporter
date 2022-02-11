@@ -11,8 +11,6 @@ class ExporterTest extends BaseTestCase
     {
         $this->removeJsonLanguageFiles();
 
-        $this->assertEquals(Misc::isLaravel9OrAbove(), lang_path());
-
         $this->createTestView("{{ __('name') }}");
 
         $this->artisan('translatable:export', ['lang' => 'bg,es'])

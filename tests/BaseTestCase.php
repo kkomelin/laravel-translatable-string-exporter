@@ -31,7 +31,7 @@ class BaseTestCase extends TestCase
 
     protected function removeJsonLanguageFiles()
     {
-        $path = Misc::isLaravel9OrAbove() ? lang_path('*.json') : resource_path('lang/*.json');
+        $path = $this->getTranslationFilePath('*');
         $files = glob($path); // get all file names
         foreach ($files as $file) { // iterate files
             if (is_file($file)) {
@@ -47,7 +47,9 @@ class BaseTestCase extends TestCase
 
     protected function getTranslationFilePath($language)
     {
-        return Misc::isLaravel9OrAbove() ? lang_path($language . '.json') : resource_path('lang/' . $language . '.json');
+        return is_dir(resource_path('lang'))
+            ? resource_path('lang/' . $language . '.json')
+            : base_path('lang/' . $language . '.json');
     }
 
     protected function getTranslationFileContent($language)

@@ -12,13 +12,6 @@ use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
 class IO
 {
     /**
-     * The target directory for translation files.
-     *
-     * @var string
-     */
-    const TRANSLATION_FILE_DIRECTORY = 'lang';
-
-    /**
      * Write a string to a file.
      *
      * @param string $path
@@ -62,11 +55,10 @@ class IO
      */
     public static function languageFilePath($base_path, $language)
     {
-        /**
-         * @deprecated 2.0.0 Replace the Laravel version check with self::TRANSLATION_FILE_DIRECTORY ('lang').
-         */
         $translation_file_directory =
-            Misc::isLaravel9OrAbove() ? self::TRANSLATION_FILE_DIRECTORY : 'resources/lang';
+            is_dir($base_path . DIRECTORY_SEPARATOR . 'resources/lang') 
+            ? 'resources/lang' 
+            : 'lang';
 
         return $base_path . DIRECTORY_SEPARATOR .
             $translation_file_directory . DIRECTORY_SEPARATOR .
