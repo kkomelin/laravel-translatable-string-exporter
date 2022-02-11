@@ -3,12 +3,15 @@
 namespace Tests;
 
 use KKomelin\TranslatableStringExporter\Core\Exporter;
+use KKomelin\TranslatableStringExporter\Core\Utils\Misc;
 
 class ExporterTest extends BaseTestCase
 {
     public function testTranslationFilesCreation()
     {
         $this->removeJsonLanguageFiles();
+
+        $this->assertEquals(Misc::isLaravel9OrAbove(), lang_path());
 
         $this->createTestView("{{ __('name') }}");
 
