@@ -8,16 +8,8 @@ Translatable String Exporter is aimed to collect all translatable strings of an 
 
 ## Installation
 
-1. Add kkomelin/laravel-translatable-string-exporter to your project:
-
 ```bash
 composer require kkomelin/laravel-translatable-string-exporter
-```
-
-2. [**Laravel < 5.5** only] Add `ExporterServiceProvider` to the providers array in config/app.php:
-
-```php
-KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
 ```
 
 ## Configuration
