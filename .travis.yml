@@ -2,7 +2,6 @@
 language: php
 
 php:
-  - 7.3
   - 7.4
   - 8.0
 
@@ -16,8 +15,6 @@ env:
 matrix:
   fast_finish: true
   exclude:    
-  - php: 7.3      
-    env: LARAVEL_VERSION=9.0.*
   - php: 7.4      
     env: LARAVEL_VERSION=9.0.*
 
