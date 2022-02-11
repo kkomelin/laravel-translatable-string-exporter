@@ -2,6 +2,7 @@
 
 namespace KKomelin\TranslatableStringExporter\Core\Utils;
 
+use Exception;
 use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
 
 /**
@@ -14,9 +15,12 @@ class IO
     /**
      * The target directory for translation files.
      *
-     * @var string
+     * @var array
      */
-    const TRANSLATION_FILE_DIRECTORY = 'resources/lang';
+    const TRANSLATION_FILE_DIRECTORIES = [
+        'lang',
+        'resources/lang',
+    ];
 
     /**
      * Write a string to a file.
@@ -62,8 +66,16 @@ class IO
      */
     public static function languageFilePath($base_path, $language)
     {
-        return $base_path . DIRECTORY_SEPARATOR .
-            self::TRANSLATION_FILE_DIRECTORY . DIRECTORY_SEPARATOR .
-            $language . '.json';
+        foreach (self::TRANSLATION_FILE_DIRECTORIES as $directory) {
+            $fileName = $base_path . DIRECTORY_SEPARATOR .
+                $directory . DIRECTORY_SEPARATOR .
+                $language . '.json';
+
+            if (file_exists($fileName)) {
+                return $fileName;
+            }
+        }
+
+        throw new Exception('Could not find files in folders: ' . implode(', ', self::TRANSLATION_FILE_DIRECTORIES));
     }
 }
