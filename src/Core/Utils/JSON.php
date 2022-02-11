@@ -7,7 +7,7 @@ class JSON
     /**
      * Convert an array/object to the properly formatted JSON string.
      *
-     * @param $strings
+     * @param array $strings
      * @return string
      */
     public static function jsonEncode($strings)

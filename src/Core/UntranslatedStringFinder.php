@@ -11,7 +11,7 @@ class UntranslatedStringFinder
      *
      * @param string $base_path
      * @param string $language
-     * @return array
+     * @return array|false
      */
     public function find($base_path, $language)
     {

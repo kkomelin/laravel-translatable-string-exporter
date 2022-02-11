@@ -36,6 +36,7 @@ class Exporter
      *
      * @param string $base_path
      * @param string $language
+     * @return void
      */
     public function export($base_path, $language)
     {
@@ -125,8 +126,8 @@ class Exporter
      * Exclude Laravel translation keys from the array
      * if they have corresponding translations in the given language.
      *
-     * @param $translatable_strings
-     * @param $language
+     * @param array $translatable_strings
+     * @param string $language
      * @return array|mixed
      */
     protected function excludeTranslationKeysIfEnabled($translatable_strings, $language) {
@@ -147,7 +148,7 @@ class Exporter
      * at the top of the translation file, then untranslated and translated strings
      * are sorted separately.
      *
-     * @param $translatable_strings
+     * @param array $translatable_strings
      * @return array
      */
     protected function advancedSortIfEnabled($translatable_strings) {
@@ -200,8 +201,8 @@ class Exporter
      * Check if the given translatable string is a translation key and has a translation.
      * The translation keys are ignored if the corresponding option is set through the config.
      *
-     * @param $key
-     * @param $locale
+     * @param string $key
+     * @param string $locale
      * @return bool
      */
     private function isTranslationKey($key, $locale) {

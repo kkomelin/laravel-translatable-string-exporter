@@ -25,16 +25,21 @@ class InspectTranslationsCommand extends Command
      */
     protected $description = 'Scan a language file for unstranslated string and display them in the console.';
 
-
     /**
-     * @var StringExtractor
+     * @var Exporter
      */
     protected $exporter;
 
     /**
+     * @var UntranslatedStringFinder
+     */
+    protected $finder;
+
+    /**
      * ExtractCommand constructor.
      *
-     * @param StringExtractor $extractor
+     * @param Exporter $exporter
+     * @param UntranslatedStringFinder $finder
      */
     public function __construct(Exporter $exporter, UntranslatedStringFinder $finder)
     {
