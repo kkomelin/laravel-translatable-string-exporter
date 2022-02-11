@@ -16,7 +16,7 @@ class IO
      *
      * @var string
      */
-    const TRANSLATION_FILE_DIRECTORY = 'resources/lang';
+    const TRANSLATION_FILE_DIRECTORY = 'lang';
 
     /**
      * Write a string to a file.
@@ -62,8 +62,14 @@ class IO
      */
     public static function languageFilePath($base_path, $language)
     {
+        /**
+         * @deprecated 2.0.0 Replace the Laravel version check with self::TRANSLATION_FILE_DIRECTORY ('lang').
+         */
+        $translation_file_directory =
+            Misc::isLaravel9OrAbove() ? self::TRANSLATION_FILE_DIRECTORY : 'resources/lang';
+
         return $base_path . DIRECTORY_SEPARATOR .
-            self::TRANSLATION_FILE_DIRECTORY . DIRECTORY_SEPARATOR .
+            $translation_file_directory . DIRECTORY_SEPARATOR .
             $language . '.json';
     }
 }
