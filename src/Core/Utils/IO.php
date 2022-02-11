@@ -49,11 +49,10 @@ class IO
     /**
      * Get language file path.
      *
-     * @param string $base_path
      * @param string $language
      * @return string
      */
-    public static function languageFilePath($base_path, $language)
+    public static function languageFilePath($language)
     {
         return function_exists('lang_path') ? lang_path("$language.json") : resource_path("lang/$language.json");
     }

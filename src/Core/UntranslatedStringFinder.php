@@ -9,13 +9,12 @@ class UntranslatedStringFinder
     /**
      * Find untranslated strings in a language file.
      *
-     * @param string $base_path
      * @param string $language
      * @return array
      */
-    public function find($base_path, $language)
+    public function find($language)
     {
-        $language_path = IO::languageFilePath($base_path, $language);
+        $language_path = IO::languageFilePath($language);
 
         if (!file_exists($language_path)) {
             return false;

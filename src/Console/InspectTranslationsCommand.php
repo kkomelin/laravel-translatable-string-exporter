@@ -68,12 +68,12 @@ class InspectTranslationsCommand extends Command
         $export_first = $this->option('export-first');
 
         if ($export_first) {
-            $this->exporter->export(base_path(), $language);
+            $this->exporter->export($language);
             $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
         }
 
         // Find untranslated strings in the given language file.
-        $untranslated_strings = $this->finder->find(base_path(), $language);
+        $untranslated_strings = $this->finder->find($language);
 
         if ($untranslated_strings === false) {
             $this->info('Did not find ' . $language . '.json file. Use --export-first option.');

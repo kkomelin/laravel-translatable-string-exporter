@@ -47,9 +47,7 @@ class BaseTestCase extends TestCase
 
     protected function getTranslationFilePath($language)
     {
-        return is_dir(resource_path('lang'))
-            ? resource_path('lang/' . $language . '.json')
-            : base_path('lang/' . $language . '.json');
+        return function_exists('lang_path') ? lang_path("$language.json") : resource_path("lang/$language.json");
     }
 
     protected function getTranslationFileContent($language)
