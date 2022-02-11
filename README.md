@@ -1,6 +1,6 @@
 # Translatable String Exporter for Laravel
 
-[![Build Status](https://travis-ci.com/kkomelin/laravel-translatable-string-exporter.svg?branch=master)](https://travis-ci.com/kkomelin/laravel-translatable-string-exporter)
+[![run-tests](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml)
 
 As we know, Laravel 5.4 has introduced a "new" way of string translation.
 Now you can use `__('Translate me')` or `@lang('Translate me')` with translations in JSON files to translate strings.
