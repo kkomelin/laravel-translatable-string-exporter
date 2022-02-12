@@ -23,16 +23,15 @@ class ExportCommand extends Command
      */
     protected $description = 'Export translatable strings for a language to a JSON file.';
 
-
     /**
-     * @var StringExtractor
+     * @var Exporter
      */
     protected $exporter;
 
     /**
-     * ExtractCommand constructor.
+     * ExportCommand constructor.
      *
-     * @param StringExtractor $extractor
+     * @param Exporter $exporter
      */
     public function __construct(Exporter $exporter)
     {

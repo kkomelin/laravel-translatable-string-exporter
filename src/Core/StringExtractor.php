@@ -4,7 +4,14 @@ namespace KKomelin\TranslatableStringExporter\Core;
 
 class StringExtractor
 {
+    /**
+     * @var FileFinder
+     */
     private $finder;
+
+    /**
+     * @var CodeParser
+     */
     private $parser;
 
     public function __construct()
@@ -15,9 +22,10 @@ class StringExtractor
 
     /**
      * Extract translatable strings from the project files.
+     *
+     * @return array
      */
     public function extract() {
-
         $strings = [];
 
         $files = $this->finder->find();

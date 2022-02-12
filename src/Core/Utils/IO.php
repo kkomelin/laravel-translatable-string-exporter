@@ -14,8 +14,9 @@ class IO
     /**
      * Write a string to a file.
      *
+     * @param string $content
      * @param string $path
-     * @param $content
+     * @return void
      */
     public static function write($content, $path) {
         file_put_contents($path, $content);
@@ -24,6 +25,7 @@ class IO
     /**
      * Read json file and convert it into an array of strings.
      *
+     * @param string $path
      * @return string|bool
      */
     public static function read($path) {
@@ -38,7 +40,7 @@ class IO
     /**
      * Read existing translation file for the chosen language.
      *
-     * @param $language_path
+     * @param string $language_path
      * @return array
      */
     public static function readTranslationFile($language_path) {

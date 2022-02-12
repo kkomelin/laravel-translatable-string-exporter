@@ -10,7 +10,7 @@ class UntranslatedStringFinder
      * Find untranslated strings in a language file.
      *
      * @param string $language
-     * @return array
+     * @return array|false
      */
     public function find($language)
     {
