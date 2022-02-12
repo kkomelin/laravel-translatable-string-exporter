@@ -3,7 +3,6 @@
 namespace Tests;
 
 use KKomelin\TranslatableStringExporter\Core\Exporter;
-use KKomelin\TranslatableStringExporter\Core\Utils\Misc;
 
 class ExporterTest extends BaseTestCase
 {
