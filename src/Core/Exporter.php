@@ -34,12 +34,11 @@ class Exporter
     /**
      * Export translatable strings to the language file.
      *
-     * @param string $base_path
      * @param string $language
      */
-    public function export($base_path, $language)
+    public function export($language)
     {
-        $language_path = IO::languageFilePath($base_path, $language);
+        $language_path = IO::languageFilePath($language);
 
         // Extract source strings from the project directories.
         $new_strings = $this->extractor->extract();
@@ -49,7 +48,7 @@ class Exporter
 
         // Get the persistent strings.
         $persistent_strings_path =
-            IO::languageFilePath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
+            IO::languageFilePath(self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
         $persistent_strings = IO::readTranslationFile($persistent_strings_path);
 
         // Add persistent strings to the export if enabled.
@@ -86,7 +85,7 @@ class Exporter
     }
 
     /**
-     * Sort the translation strings alphabetically by their original strings (keys) 
+     * Sort the translation strings alphabetically by their original strings (keys)
      * if the corresponding option is enabled through the package config.
      *
      * @param array $strings

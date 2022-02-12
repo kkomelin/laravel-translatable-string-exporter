@@ -63,7 +63,7 @@ class ExportCommand extends Command
         $languages = explode(',', $this->argument('lang'));
 
         foreach ($languages as $language) {
-            $this->exporter->export(base_path(), $language);
+            $this->exporter->export($language);
 
             $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
         }
