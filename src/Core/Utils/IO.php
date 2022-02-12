@@ -55,6 +55,13 @@ class IO
      */
     public static function languageFilePath($base_path, $language)
     {
-        return function_exists('lang_path') ? lang_path("$language.json") : resource_path("lang/$language.json");
+        $translation_file_directory =
+            is_dir($base_path . DIRECTORY_SEPARATOR . 'resources/lang') 
+            ? 'resources/lang' 
+            : 'lang';
+
+        return $base_path . DIRECTORY_SEPARATOR .
+            $translation_file_directory . DIRECTORY_SEPARATOR .
+            $language . '.json';
     }
 }
