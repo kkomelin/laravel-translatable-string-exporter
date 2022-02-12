@@ -1,7 +1,7 @@
 # Translatable String Exporter for Laravel
 
 [![Tests Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml)
-[![Code Style Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml)
+[![Code Style Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml)
 
 
 As we know, Laravel 5.4 has introduced a "new" way of string translation.
