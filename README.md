@@ -1,6 +1,7 @@
 # Translatable String Exporter for Laravel
 
-[![run-tests](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml)
+[![Tests Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml)
+[![Code Style Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml)
 
 As we know, Laravel 5.4 has introduced a "new" way of string translation.
 Now you can use `__('Translate me')` or `@lang('Translate me')` with translations in JSON files to translate strings.
@@ -87,4 +88,4 @@ In order for those, manually added, strings not to get removed the next time you
 
 ## License & Copyright
 
-[MIT](https://github.com/kkomelin/laravel-translatable-string-exporter/blob/master/LICENSE), (c) 2017 Konstantin Komelin
+[MIT](https://github.com/kkomelin/laravel-translatable-string-exporter/blob/master/LICENSE), (c) 2017 Konstantin Komelin and [contributors](https://github.com/kkomelin/laravel-translatable-string-exporter/graphs/contributors)
