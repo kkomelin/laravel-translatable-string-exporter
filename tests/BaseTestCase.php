@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use KKomelin\TranslatableStringExporter\Core\Utils\Misc;
 use Orchestra\Testbench\TestCase;
 use KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider;
 
