@@ -44,11 +44,13 @@ class BaseTestCase extends TestCase
         file_put_contents(resource_path('views/index.blade.php'), $content);
     }
 
+    /**
+     * @deprecated 2.0.0 Replace base_path('lang') with lang_path().
+     */
     protected function getTranslationFilePath($language)
     {
-        return is_dir(resource_path('lang'))
-            ? resource_path('lang/' . $language . '.json')
-            : base_path('lang/' . $language . '.json');
+        $lang_path = 'lang/' . $language . '.json';
+        return is_dir(resource_path('lang')) ? resource_path($lang_path) : base_path($lang_path);
     }
 
     protected function getTranslationFileContent($language)
