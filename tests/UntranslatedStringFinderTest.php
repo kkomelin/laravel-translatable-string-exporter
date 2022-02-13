@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests;
+
 use Illuminate\Support\Str;
 
 class UntranslatedStringFinderTest extends BaseTestCase
@@ -39,7 +40,7 @@ class UntranslatedStringFinderTest extends BaseTestCase
         $language = 'es';
         $command = $this->artisan('translatable:inspect-translations', [
             'lang' => $language,
-            '--export-first' => true
+            '--export-first' => true,
         ])
             ->expectsOutput(
                 'Found ' . count($source) . ' untranslated ' .

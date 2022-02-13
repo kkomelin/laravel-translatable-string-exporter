@@ -25,7 +25,8 @@ class StringExtractor
      *
      * @return array
      */
-    public function extract() {
+    public function extract()
+    {
         $strings = [];
 
         $files = $this->finder->find();
@@ -42,8 +43,8 @@ class StringExtractor
      * @param array $strings
      * @return array
      */
-    protected function formatArray(array $strings) {
-
+    protected function formatArray(array $strings)
+    {
         $result = [];
 
         foreach ($strings as $string) {

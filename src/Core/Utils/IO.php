@@ -2,8 +2,6 @@
 
 namespace KKomelin\TranslatableStringExporter\Core\Utils;
 
-use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
-
 /**
  * Class IO is responsible for reading from and writing to files.
  *
@@ -18,7 +16,8 @@ class IO
      * @param string $path
      * @return void
      */
-    public static function write($content, $path) {
+    public static function write($content, $path)
+    {
         file_put_contents($path, $content);
     }
 
@@ -28,9 +27,9 @@ class IO
      * @param string $path
      * @return string|bool
      */
-    public static function read($path) {
-
-        if (!file_exists($path)) {
+    public static function read($path)
+    {
+        if (! file_exists($path)) {
             return false;
         }
 
@@ -43,8 +42,10 @@ class IO
      * @param string $language_path
      * @return array
      */
-    public static function readTranslationFile($language_path) {
+    public static function readTranslationFile($language_path)
+    {
         $content = self::read($language_path);
+
         return JSON::jsonDecode($content);
     }
 
