@@ -1,16 +1,15 @@
 <?php
+
 namespace KKomelin\TranslatableStringExporter\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use KKomelin\TranslatableStringExporter\Core\Exporter;
-use KKomelin\TranslatableStringExporter\Core\StringExtractor;
 use KKomelin\TranslatableStringExporter\Core\UntranslatedStringFinder;
 use Symfony\Component\Console\Input\InputArgument;
 
 class InspectTranslationsCommand extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -82,11 +81,13 @@ class InspectTranslationsCommand extends Command
 
         if ($untranslated_strings === false) {
             $this->info('Did not find ' . $language . '.json file. Use --export-first option.');
+
             return;
         }
 
         if (empty($untranslated_strings)) {
             $this->info('Did not find any untranslated strings in the ' . $language . '.json file.');
+
             return;
         }
 
@@ -114,7 +115,7 @@ class InspectTranslationsCommand extends Command
             [
                 'lang',
                 InputArgument::REQUIRED,
-                'A language code for which untranslated strings are detected, e.g. "es".'
+                'A language code for which untranslated strings are detected, e.g. "es".',
             ],
         ];
     }

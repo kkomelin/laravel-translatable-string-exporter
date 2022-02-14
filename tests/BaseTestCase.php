@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use Orchestra\Testbench\TestCase;
 use KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider;
+use Orchestra\Testbench\TestCase;
 
 class BaseTestCase extends TestCase
 {
@@ -53,6 +53,7 @@ class BaseTestCase extends TestCase
     {
         $path = $this->getTranslationFilePath($language);
         $content = file_get_contents($path);
+
         return json_decode($content, true);
     }
 

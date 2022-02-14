@@ -3,11 +3,11 @@
 namespace KKomelin\TranslatableStringExporter\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use KKomelin\TranslatableStringExporter\Console\InspectTranslationsCommand;
 use KKomelin\TranslatableStringExporter\Console\ExportCommand;
+use KKomelin\TranslatableStringExporter\Console\InspectTranslationsCommand;
 
-class ExporterServiceProvider extends ServiceProvider {
-
+class ExporterServiceProvider extends ServiceProvider
+{
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -57,14 +57,14 @@ class ExporterServiceProvider extends ServiceProvider {
      */
     public function provides()
     {
-        return array(
+        return [
             'translatable-string-exporter-exporter',
             'command.translatable-string-exporter-exporter.export',
             'translatable-string-exporter-inspect-translations',
             'command.translatable-string-exporter-inspect-translations.inspect-translations',
-        );
+        ];
     }
-    
+
     /**
      * Perform post-registration booting of services.
      *

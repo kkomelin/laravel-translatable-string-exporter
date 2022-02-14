@@ -16,7 +16,7 @@ class UntranslatedStringFinder
     {
         $language_path = IO::languageFilePath($language);
 
-        if (!file_exists($language_path)) {
+        if (! file_exists($language_path)) {
             return false;
         }
 
