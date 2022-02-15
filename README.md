@@ -8,6 +8,15 @@ As we know, Laravel 5.4 has introduced a "new" way of string translation.
 Now you can use `__('Translate me')` or `@lang('Translate me')` with translations in JSON files to translate strings.
 Translatable String Exporter is aimed to collect all translatable strings of an application and create corresponding translation files in JSON format to simplify the process of translation.
 
+## Versions
+
+| Package  | PHP |
+| ------------- | ------------- |
+| `<=1.15.1`  | `5.6`  |
+| `>=1.16.0`  | `^7.2\|^8.0`  |
+
+_Even though we drop support for PHP versions in minor releases, Composer ensures that users with previous versions of PHP don't get not-yet-supported PHP features._
+
 ## Installation
 
 ```bash

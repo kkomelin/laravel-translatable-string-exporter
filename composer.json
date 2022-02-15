@@ -8,7 +8,7 @@
     "email": "konstantin.komelin@gmail.com"
   }],
   "require": {
-    "php": ">=5.4.0",
+    "php": "^7.2|^8.0",
     "ext-json": "*",
     "illuminate/support": "^5.4|^6|^7|^8|^9",
     "illuminate/translation": "^5.4|^6|^7|^8|^9",
