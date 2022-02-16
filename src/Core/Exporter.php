@@ -14,7 +14,7 @@ class Exporter
      *
      * @var string
      */
-    const PERSISTENT_STRINGS_FILENAME_WO_EXT = 'persistent-strings';
+    public const PERSISTENT_STRINGS_FILENAME_WO_EXT = 'persistent-strings';
 
     /**
      * Extractor object.
