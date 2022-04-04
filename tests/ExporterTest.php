@@ -167,7 +167,9 @@ EOD;
             "{{ __('escaped\\nnewline') }}" .
             // Un-escaped newlines are now also processed.
             // 2) Strings including un-escaped newlines are ignored.
-            "{{ __(\"detected\nmultiple\nline\nstring\") }}";
+            "{{ __(\"detected\nmultiple\nline\nstring\") }}" .
+            // test whether strings which have new line between function and string are also detected
+            "{{ __(\n\"string between new line\"\n) }}";
 
         $this->createTestView($view);
 
@@ -181,6 +183,7 @@ EOD;
             'translation.keys' => 'translation.keys',
             'escaped\nnewline' => 'escaped\nnewline',
             "detected\nmultiple\nline\nstring" => "detected\nmultiple\nline\nstring",
+            "string between new line" => "string between new line"
         ];
 
         $this->assertEquals($expected, $actual);
