@@ -93,7 +93,6 @@ class ExporterTest extends BaseTestCase
 
     public function testQuotationMarkEscapingPR52()
     {
-
         $this->removeJsonLanguageFiles();
 
         $view = <<<EOD
@@ -118,7 +117,7 @@ EOD;
             "You're pretty great!" => "You're pretty great!",
             'You\"re pretty great!' => 'You\"re pretty great!',
             'Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.' =>
-                'Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.'
+                'Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.',
         ];
 
         $this->assertEquals($expected, $actual);
@@ -181,7 +180,7 @@ EOD;
             'translation.keys' => 'translation.keys',
             'escaped\nnewline' => 'escaped\nnewline',
             "detected\nmultiple\nline\nstring" => "detected\nmultiple\nline\nstring",
-            "string between new line" => "string between new line"
+            "string between new line" => "string between new line",
         ];
 
         $this->assertEquals($expected, $actual);

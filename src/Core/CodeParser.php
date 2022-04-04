@@ -19,6 +19,7 @@ class CodeParser
      * @var string
      */
     protected $pattern = '/([FUNCTIONS])\(\s*([\'"])(?P<string>(?:(?![^\\\]\2).)+.)\2\s*[\),]/u';
+
     /**
      * Parser constructor.
      */
@@ -74,7 +75,7 @@ class CodeParser
      */
     public function clean(array $strings)
     {
-        return array_map(function ($string){
+        return array_map(function ($string) {
             return str_replace('\\\'', '\'', $string);
         }, $strings);
     }
