@@ -1,14 +1,13 @@
 <?php
+
 namespace KKomelin\TranslatableStringExporter\Console;
 
 use Illuminate\Console\Command;
 use KKomelin\TranslatableStringExporter\Core\Exporter;
-use KKomelin\TranslatableStringExporter\Core\StringExtractor;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ExportCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -23,16 +22,15 @@ class ExportCommand extends Command
      */
     protected $description = 'Export translatable strings for a language to a JSON file.';
 
-
     /**
-     * @var StringExtractor
+     * @var Exporter
      */
     protected $exporter;
 
     /**
-     * ExtractCommand constructor.
+     * ExportCommand constructor.
      *
-     * @param StringExtractor $extractor
+     * @param Exporter $exporter
      */
     public function __construct(Exporter $exporter)
     {
@@ -63,7 +61,7 @@ class ExportCommand extends Command
         $languages = explode(',', $this->argument('lang'));
 
         foreach ($languages as $language) {
-            $this->exporter->export(base_path(), $language);
+            $this->exporter->export($language);
 
             $this->info('Translatable strings have been extracted and written to the ' . $language . '.json file.');
         }
@@ -80,7 +78,7 @@ class ExportCommand extends Command
             [
                 'lang',
                 InputArgument::REQUIRED,
-                'A language code or a comma-separated list of language codes for which the translatable strings are extracted, e.g. "es" or "es,bg,de".'
+                'A language code or a comma-separated list of language codes for which the translatable strings are extracted, e.g. "es" or "es,bg,de".',
             ],
         ];
     }

@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use Orchestra\Testbench\TestCase;
 use KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider;
+use Orchestra\Testbench\TestCase;
 
 class BaseTestCase extends TestCase
 {
@@ -30,7 +30,8 @@ class BaseTestCase extends TestCase
 
     protected function removeJsonLanguageFiles()
     {
-        $files = glob(base_path('resources/lang/*.json')); // get all file names
+        $path = $this->getTranslationFilePath('*');
+        $files = glob($path); // get all file names
         foreach ($files as $file) { // iterate files
             if (is_file($file)) {
                 unlink($file); // delete file
@@ -45,13 +46,14 @@ class BaseTestCase extends TestCase
 
     protected function getTranslationFilePath($language)
     {
-        return resource_path('lang/' . $language . '.json');
+        return function_exists('lang_path') ? lang_path("$language.json") : resource_path("lang/$language.json");
     }
 
     protected function getTranslationFileContent($language)
     {
         $path = $this->getTranslationFilePath($language);
         $content = file_get_contents($path);
+
         return json_decode($content, true);
     }
 

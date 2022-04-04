@@ -25,16 +25,20 @@ class FileFinder
      */
     public function __construct()
     {
-        $this->directories = config('laravel-translatable-string-exporter.directories',
+        $this->directories = config(
+            'laravel-translatable-string-exporter.directories',
             [
                 'app',
                 'resources',
-            ]);
-        $this->patterns = config('laravel-translatable-string-exporter.patterns',
+            ]
+        );
+        $this->patterns = config(
+            'laravel-translatable-string-exporter.patterns',
             [
                 '*.php',
-                '*.js'
-            ]);
+                '*.js',
+            ]
+        );
     }
 
     /**
@@ -47,7 +51,7 @@ class FileFinder
         $path = base_path();
 
         $directories = $this->directories;
-        array_walk($directories, function (&$item) use($path) {
+        array_walk($directories, function (&$item) use ($path) {
             $item = $path . DIRECTORY_SEPARATOR . $item;
         });
 

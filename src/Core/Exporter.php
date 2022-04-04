@@ -4,8 +4,8 @@ namespace KKomelin\TranslatableStringExporter\Core;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
 use KKomelin\TranslatableStringExporter\Core\Utils\IO;
+use KKomelin\TranslatableStringExporter\Core\Utils\JSON;
 
 class Exporter
 {
@@ -14,7 +14,7 @@ class Exporter
      *
      * @var string
      */
-    const PERSISTENT_STRINGS_FILENAME_WO_EXT = 'persistent-strings';
+    public const PERSISTENT_STRINGS_FILENAME_WO_EXT = 'persistent-strings';
 
     /**
      * Extractor object.
@@ -34,12 +34,12 @@ class Exporter
     /**
      * Export translatable strings to the language file.
      *
-     * @param string $base_path
      * @param string $language
+     * @return void
      */
-    public function export($base_path, $language)
+    public function export($language)
     {
-        $language_path = IO::languageFilePath($base_path, $language);
+        $language_path = IO::languageFilePath($language);
 
         // Extract source strings from the project directories.
         $new_strings = $this->extractor->extract();
@@ -49,7 +49,7 @@ class Exporter
 
         // Get the persistent strings.
         $persistent_strings_path =
-            IO::languageFilePath($base_path, self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
+            IO::languageFilePath(self::PERSISTENT_STRINGS_FILENAME_WO_EXT);
         $persistent_strings = IO::readTranslationFile($persistent_strings_path);
 
         // Add persistent strings to the export if enabled.
@@ -80,13 +80,14 @@ class Exporter
     protected function mergeStrings($new_strings, $existing_strings, $persistent_strings)
     {
         $merged_strings = array_merge($new_strings, $existing_strings);
+
         return $this->arrayFilterByKey($merged_strings, function ($key) use ($persistent_strings, $new_strings) {
             return in_array($key, $persistent_strings) || array_key_exists($key, $new_strings);
         });
     }
 
     /**
-     * Sort the translation strings alphabetically by their original strings (keys) 
+     * Sort the translation strings alphabetically by their original strings (keys)
      * if the corresponding option is enabled through the package config.
      *
      * @param array $strings
@@ -110,7 +111,8 @@ class Exporter
      * @param array $persistent_strings
      * @return array
      */
-    protected function addPersistentStringsIfEnabled($new_strings, $persistent_strings) {
+    protected function addPersistentStringsIfEnabled($new_strings, $persistent_strings)
+    {
         if (config('laravel-translatable-string-exporter.add-persistent-strings-to-translations', false)) {
             $new_strings = array_merge(
                 array_combine($persistent_strings, $persistent_strings),
@@ -125,11 +127,12 @@ class Exporter
      * Exclude Laravel translation keys from the array
      * if they have corresponding translations in the given language.
      *
-     * @param $translatable_strings
-     * @param $language
+     * @param array $translatable_strings
+     * @param string $language
      * @return array|mixed
      */
-    protected function excludeTranslationKeysIfEnabled($translatable_strings, $language) {
+    protected function excludeTranslationKeysIfEnabled($translatable_strings, $language)
+    {
         if (config('laravel-translatable-string-exporter.exclude-translation-keys', false)) {
             foreach ($translatable_strings as $key => $value) {
                 if ($this->isTranslationKey($key, $language)) {
@@ -147,10 +150,11 @@ class Exporter
      * at the top of the translation file, then untranslated and translated strings
      * are sorted separately.
      *
-     * @param $translatable_strings
+     * @param array $translatable_strings
      * @return array
      */
-    protected function advancedSortIfEnabled($translatable_strings) {
+    protected function advancedSortIfEnabled($translatable_strings)
+    {
         // If it's necessary to put untranslated strings at the top.
         if (config('laravel-translatable-string-exporter.put-untranslated-strings-at-the-top', false)) {
             $translated = [];
@@ -158,6 +162,7 @@ class Exporter
             foreach ($translatable_strings as $key => $value) {
                 if ($key === $value) {
                     $untranslated[$key] = $value;
+
                     continue;
                 }
                 $translated[$key] = $value;
@@ -193,6 +198,7 @@ class Exporter
     private function arrayFilterByKey($array, $callback)
     {
         $matchedKeys = array_filter(array_keys($array), $callback);
+
         return array_intersect_key($array, array_flip($matchedKeys));
     }
 
@@ -200,12 +206,12 @@ class Exporter
      * Check if the given translatable string is a translation key and has a translation.
      * The translation keys are ignored if the corresponding option is set through the config.
      *
-     * @param $key
-     * @param $locale
+     * @param string $key
+     * @param string $locale
      * @return bool
      */
-    private function isTranslationKey($key, $locale) {
-
+    private function isTranslationKey($key, $locale)
+    {
         $dot_position = strpos($key, '.');
 
         // Ignore string without dots.
@@ -215,7 +221,7 @@ class Exporter
 
         // Ignore strings where the dot is at the end of a string
         // because it's a normal sentence.
-        if($dot_position === (strlen($key) - 1)) {
+        if ($dot_position === (strlen($key) - 1)) {
             return false;
         }
 
@@ -231,6 +237,6 @@ class Exporter
         // If the received translation is an array, the initial translation key is not full,
         // so we consider it wrong.
 
-        return isset($translations[$key]) && !is_array($translations[$key]);
+        return isset($translations[$key]) && ! is_array($translations[$key]);
     }
 }

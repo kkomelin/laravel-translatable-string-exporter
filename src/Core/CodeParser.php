@@ -19,18 +19,19 @@ class CodeParser
      * @var string
      */
     protected $pattern = '/([FUNCTIONS])\(\s*([\'"])(?P<string>(?:(?![^\\\]\2).)+.)\2\s*[\),]/u';
-
     /**
      * Parser constructor.
      */
     public function __construct()
     {
-        $this->functions = config('laravel-translatable-string-exporter.functions',
-           [
+        $this->functions = config(
+            'laravel-translatable-string-exporter.functions',
+            [
                '__',
                '_t',
-               '@lang'
-           ]);
+               '@lang',
+           ]
+        );
         $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
 
         if (config('laravel-translatable-string-exporter.allow-newlines', false)) {
@@ -48,7 +49,7 @@ class CodeParser
     {
         $strings = [];
 
-        if(!preg_match_all($this->pattern, $file->getContents(), $matches)) {
+        if (! preg_match_all($this->pattern, $file->getContents(), $matches)) {
             return $this->clean($strings);
         }
 

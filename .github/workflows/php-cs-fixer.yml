@@ -1,0 +1,21 @@
+name: Code Styles
+
+on: [push]
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run PHP CS Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php_cs.dist.php --allow-risky=yes
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Fix styling

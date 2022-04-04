@@ -3,11 +3,13 @@
 namespace KKomelin\TranslatableStringExporter\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use KKomelin\TranslatableStringExporter\Console\InspectTranslationsCommand;
 use KKomelin\TranslatableStringExporter\Console\ExportCommand;
+use KKomelin\TranslatableStringExporter\Console\InspectTranslationsCommand;
+use KKomelin\TranslatableStringExporter\Core\Exporter;
+use KKomelin\TranslatableStringExporter\Core\UntranslatedStringFinder;
 
-class ExporterServiceProvider extends ServiceProvider {
-
+class ExporterServiceProvider extends ServiceProvider
+{
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -27,7 +29,7 @@ class ExporterServiceProvider extends ServiceProvider {
         // Export translatable strings command.
 
         $this->app->singleton('translatable-string-exporter-exporter', function ($app) {
-            return $app->make('\KKomelin\TranslatableStringExporter\Core\Exporter');
+            return $app->make(Exporter::class);
         });
 
         $this->app->singleton('command.translatable-string-exporter-exporter.export', function ($app) {
@@ -38,7 +40,7 @@ class ExporterServiceProvider extends ServiceProvider {
         // Inspect translations command.
 
         $this->app->singleton('translatable-string-exporter-inspect-translations', function ($app) {
-            return $app->make('\KKomelin\TranslatableStringExporter\Core\UntranslatedStringFinder');
+            return $app->make(UntranslatedStringFinder::class);
         });
 
         $this->app->singleton('command.translatable-string-exporter-inspect-translations.inspect-translations', function ($app) {
@@ -57,14 +59,14 @@ class ExporterServiceProvider extends ServiceProvider {
      */
     public function provides()
     {
-        return array(
+        return [
             'translatable-string-exporter-exporter',
             'command.translatable-string-exporter-exporter.export',
             'translatable-string-exporter-inspect-translations',
             'command.translatable-string-exporter-inspect-translations.inspect-translations',
-        );
+        ];
     }
-    
+
     /**
      * Perform post-registration booting of services.
      *

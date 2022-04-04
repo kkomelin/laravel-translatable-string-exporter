@@ -1,23 +1,25 @@
 # Translatable String Exporter for Laravel
 
-[![Build Status](https://travis-ci.com/kkomelin/laravel-translatable-string-exporter.svg?branch=master)](https://travis-ci.com/kkomelin/laravel-translatable-string-exporter)
+[![Tests Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml)
+[![PHPStan Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml)
+[![Code Styles Check Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/php-cs-fixer.yml)
 
-As we know, Laravel 5.4 has introduced a "new" way of string translation.
-Now you can use `__('Translate me')` or `@lang('Translate me')` with translations in JSON files to translate strings.
+Since Laravel 5.4, you can use `__('Translate me')` or `@lang('Translate me')` with translations in JSON files to translate strings.
 Translatable String Exporter is aimed to collect all translatable strings of an application and create corresponding translation files in JSON format to simplify the process of translation.
+
+## Versions
+
+| Package  | PHP |
+| ------------- | ------------- |
+| `<=1.15.1`  | `5.6`  |
+| `>1.15.1`  | `^7.2\|^8.0`  |
+
+_Even though we drop support for PHP versions in minor releases, Composer ensures that users with previous versions of PHP don't get not-yet-supported PHP code._
 
 ## Installation
 
-1. Add kkomelin/laravel-translatable-string-exporter to your project:
-
 ```bash
 composer require kkomelin/laravel-translatable-string-exporter
-```
-
-2. [**Laravel < 5.5** only] Add `ExporterServiceProvider` to the providers array in config/app.php:
-
-```php
-KKomelin\TranslatableStringExporter\Providers\ExporterServiceProvider::class,
 ```
 
 ## Configuration
@@ -95,4 +97,4 @@ In order for those, manually added, strings not to get removed the next time you
 
 ## License & Copyright
 
-[MIT](https://github.com/kkomelin/laravel-translatable-string-exporter/blob/master/LICENSE), (c) 2017 Konstantin Komelin
+[MIT](https://github.com/kkomelin/laravel-translatable-string-exporter/blob/master/LICENSE), (c) 2017 Konstantin Komelin and [contributors](https://github.com/kkomelin/laravel-translatable-string-exporter/graphs/contributors)

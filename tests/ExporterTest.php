@@ -29,7 +29,6 @@ class ExporterTest extends BaseTestCase
 
     public function testTranslationSorting()
     {
-
         $this->removeJsonLanguageFiles();
 
         $source = [
@@ -61,7 +60,6 @@ class ExporterTest extends BaseTestCase
 
     public function testTranslationFunctionNames()
     {
-
         $this->removeJsonLanguageFiles();
 
         $view = "{{ __('name__') }} " .
@@ -365,7 +363,7 @@ EOD;
             'string with a dot.' => 'string with a dot.',
             'string with a dot. in the middle' => 'string with a dot. in the middle',
             'menu.unknown' => 'menu.unknown',
-            'menu.submenu1' => 'menu.submenu1'
+            'menu.submenu1' => 'menu.submenu1',
         ];
 
         $this->assertEquals($expected, $actual);
