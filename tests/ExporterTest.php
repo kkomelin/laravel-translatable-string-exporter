@@ -186,6 +186,67 @@ EOD;
         $this->assertEquals($expected, $actual);
     }
 
+    public function testNewLineParametersIssue57()
+    {
+        $this->removeJsonLanguageFiles();
+
+        $view = <<<EOD
+            pushGenericFeedback(__(
+                "This is some generic key with a :var1 and :var2 in it 1",
+                ["var1" => "variable", "var2" => "another variable"]
+            ));      
+
+            pushGenericFeedback(
+                __("This is some generic key with a :var1 and :var2 in it 2",
+                ["var1" => "variable", "var2" => "another variable"]
+            ));
+
+            pushGenericFeedback(
+                __("This is some generic key with a :var1 and :var2 in it 2",
+                ["var1" => "variable", "var2" => "another variable"]
+            ));
+        EOD;
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'This is some generic key with a :var1 and :var2 in it 1' =>
+                'This is some generic key with a :var1 and :var2 in it 1',
+            'This is some generic key with a :var1 and :var2 in it 2' =>
+                'This is some generic key with a :var1 and :var2 in it 2'
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testNewLineParametersIssue45()
+    {
+        $this->removeJsonLanguageFiles();
+
+        $view = <<<EOD
+            sprintf(__('A required parameter ("%s") was not found.'), ["variable"]);
+        EOD;
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'A required parameter ("%s") was not found.' =>
+                'A required parameter ("%s") was not found.'
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testUpdatingTranslations()
     {
         $this->removeJsonLanguageFiles();
