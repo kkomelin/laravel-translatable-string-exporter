@@ -213,7 +213,7 @@ EOD;
             'This is some generic key with a :var1 and :var2 in it 1' =>
                 'This is some generic key with a :var1 and :var2 in it 1',
             'This is some generic key with a :var1 and :var2 in it 2' =>
-                'This is some generic key with a :var1 and :var2 in it 2'
+                'This is some generic key with a :var1 and :var2 in it 2',
         ];
 
         $this->assertEquals($expected, $actual);
@@ -236,7 +236,7 @@ EOD;
         $actual = $this->getTranslationFileContent('es');
         $expected = [
             'A required parameter ("%s") was not found.' =>
-                'A required parameter ("%s") was not found.'
+                'A required parameter ("%s") was not found.',
         ];
 
         $this->assertEquals($expected, $actual);
