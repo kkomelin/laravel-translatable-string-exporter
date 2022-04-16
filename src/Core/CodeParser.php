@@ -18,7 +18,7 @@ class CodeParser
      *
      * @var string
      */
-    protected $pattern = '/([FUNCTIONS])\(\h*[\'"](.+)[\'"]\h*[\),]/U';
+    protected $pattern = '/([FUNCTIONS])\(\s*([\'"])(?P<string>(?:(?![^\\\]\2).)+.)\2\s*[\),]/u';
 
     /**
      * Parser constructor.
@@ -51,14 +51,32 @@ class CodeParser
         $strings = [];
 
         if (! preg_match_all($this->pattern, $file->getContents(), $matches)) {
-            return $strings;
+            return $this->clean($strings);
         }
 
-        foreach ($matches[2] as $string) {
+        foreach ($matches['string'] as $string) {
             $strings[] = $string;
         }
 
         // Remove duplicates.
-        return array_unique($strings);
+        $strings = array_unique($strings);
+
+        return $this->clean($strings);
+    }
+
+    /**
+     * Provide extra clean up step
+     * Used for instances of {{ __('We\'re amazing!') }}
+     * Without clean up: We\'re amazing!
+     * With clean up: We're amazing!
+     *
+     * @param array $strings
+     * @return array
+     */
+    public function clean(array $strings)
+    {
+        return array_map(function ($string) {
+            return str_replace('\\\'', '\'', $string);
+        }, $strings);
     }
 }

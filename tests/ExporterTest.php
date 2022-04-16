@@ -91,6 +91,38 @@ class ExporterTest extends BaseTestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testQuotationMarkEscapingPR52()
+    {
+        $this->removeJsonLanguageFiles();
+
+        $view = <<<EOD
+{{ __("He said \"WOW\".") }}
+{{ __('We\'re amazing!') }}
+@lang("You're pretty great!")
+@lang("You\"re pretty great!")
+{{ __("Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.") }}
+EOD;
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+
+        $expected = [
+            'He said \"WOW\".' => 'He said \"WOW\".',
+            'We\'re amazing!' => 'We\'re amazing!',
+            "You're pretty great!" => "You're pretty great!",
+            'You\"re pretty great!' => 'You\"re pretty great!',
+            'Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.' =>
+                'Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testMultiLineSupportDisabled()
     {
         $this->removeJsonLanguageFiles();
@@ -132,7 +164,9 @@ class ExporterTest extends BaseTestCase
             "{{ __('escaped\\nnewline') }}" .
             // Un-escaped newlines are now also processed.
             // 2) Strings including un-escaped newlines are ignored.
-            "{{ __(\"detected\nmultiple\nline\nstring\") }}";
+            "{{ __(\"detected\nmultiple\nline\nstring\") }}" .
+            // test whether strings which have new line between function and string are also detected
+            "{{ __(\n\"string between new line\"\n) }}";
 
         $this->createTestView($view);
 
@@ -146,6 +180,68 @@ class ExporterTest extends BaseTestCase
             'translation.keys' => 'translation.keys',
             'escaped\nnewline' => 'escaped\nnewline',
             "detected\nmultiple\nline\nstring" => "detected\nmultiple\nline\nstring",
+            "string between new line" => "string between new line",
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testNewLineParametersIssue57()
+    {
+        $this->removeJsonLanguageFiles();
+
+        $view = <<<EOD
+            pushGenericFeedback(__(
+                "This is some generic key with a :var1 and :var2 in it 1",
+                ["var1" => "variable", "var2" => "another variable"]
+            ));      
+
+            pushGenericFeedback(
+                __("This is some generic key with a :var1 and :var2 in it 2",
+                ["var1" => "variable", "var2" => "another variable"]
+            ));
+
+            pushGenericFeedback(
+                __("This is some generic key with a :var1 and :var2 in it 2",
+                ["var1" => "variable", "var2" => "another variable"]
+            ));
+        EOD;
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'This is some generic key with a :var1 and :var2 in it 1' =>
+                'This is some generic key with a :var1 and :var2 in it 1',
+            'This is some generic key with a :var1 and :var2 in it 2' =>
+                'This is some generic key with a :var1 and :var2 in it 2'
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testNewLineParametersIssue45()
+    {
+        $this->removeJsonLanguageFiles();
+
+        $view = <<<EOD
+            sprintf(__('A required parameter ("%s") was not found.'), ["variable"]);
+        EOD;
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'A required parameter ("%s") was not found.' =>
+                'A required parameter ("%s") was not found.'
         ];
 
         $this->assertEquals($expected, $actual);
