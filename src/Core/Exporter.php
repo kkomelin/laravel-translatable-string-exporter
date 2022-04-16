@@ -180,12 +180,6 @@ class Exporter
 
     /**
      * Filtering an array by its keys using a callback.
-     * Supports PHP < 5.6.0. Use array_filter($array, $callback, ARRAY_FILTER_USE_KEY) instead
-     * if you don't need to support earlier versions.
-     *
-     * The code borrowed from https://gist.github.com/h4cc/8e2e3d0f6a8cd9cacde8
-     *
-     * @deprecated 2.0.0 Replace with array_filter($array, $callback, ARRAY_FILTER_USE_KEY) when drop PHP < 5.6 support.
      *
      * @param array $array
      *  The array to iterate over.
@@ -197,9 +191,7 @@ class Exporter
      */
     private function arrayFilterByKey($array, $callback)
     {
-        $matchedKeys = array_filter(array_keys($array), $callback);
-
-        return array_intersect_key($array, array_flip($matchedKeys));
+        return array_filter($array, $callback, ARRAY_FILTER_USE_KEY);
     }
 
     /**

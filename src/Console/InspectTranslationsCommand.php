@@ -51,18 +51,6 @@ class InspectTranslationsCommand extends Command
     /**
      * Execute the console command.
      *
-     * @deprecated It's used to support Laravel 5.4 and below.
-     *
-     * @return void
-     */
-    public function fire()
-    {
-        $this->handle();
-    }
-
-    /**
-     * Execute the console command.
-     *
      * @return void
      */
     public function handle()
