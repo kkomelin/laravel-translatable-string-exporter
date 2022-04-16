@@ -200,11 +200,6 @@ EOD;
                 __("This is some generic key with a :var1 and :var2 in it 2",
                 ["var1" => "variable", "var2" => "another variable"]
             ));
-
-            pushGenericFeedback(
-                __("This is some generic key with a :var1 and :var2 in it 2",
-                ["var1" => "variable", "var2" => "another variable"]
-            ));
         EOD;
 
         $this->createTestView($view);
