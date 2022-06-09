@@ -18,8 +18,10 @@ _Even though we drop support for PHP versions in minor releases, Composer ensure
 
 ## Installation
 
+_Normally, it's enough to install the package as a development dependency._
+
 ```bash
-composer require kkomelin/laravel-translatable-string-exporter
+composer require kkomelin/laravel-translatable-string-exporter --dev
 ```
 
 ## Configuration
