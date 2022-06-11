@@ -8,9 +8,9 @@ return [
 
     // Directories to exclude from search.
     // 
-    // Please note, these directores should be relative to the ones listed in 'directories'.
+    // Please note, these directories should be relative to the ones listed in 'directories'.
     // For example, if you have 'resources' in 'directories', then to ignore the 'resources/ignored' directory, 
-    // you need to add 'ignored' to the 'excluded-directores' list.
+    // you need to add 'ignored' to the 'excluded-directories' list.
     'excluded-directories'=> [
     ],
 
