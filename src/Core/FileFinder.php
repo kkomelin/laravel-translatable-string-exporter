@@ -13,11 +13,11 @@ class FileFinder
      */
     protected $directories;
 
-     /**
-     * Directories to exclude from search.
-     *
-     * @var array
-     */
+    /**
+    * Directories to exclude from search.
+    *
+    * @var array
+    */
     protected $excludedDirectories;
 
     /**
