@@ -19,6 +19,10 @@ class BaseTestCase extends TestCase
             'resources',
         ]);
 
+        $app['config']->set('laravel-translatable-string-exporter.excluded-directories', [
+            'views/ignored',
+        ]);
+
         $app['config']->set('laravel-translatable-string-exporter.sort-keys', true);
 
         $app['config']->set('laravel-translatable-string-exporter.functions', [

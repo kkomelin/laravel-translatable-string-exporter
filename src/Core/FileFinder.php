@@ -14,6 +14,13 @@ class FileFinder
     protected $directories;
 
     /**
+    * Directories to exclude from search.
+    *
+    * @var array
+    */
+    protected $excludedDirectories;
+
+    /**
      * File patterns to search for.
      *
      * @var array
@@ -31,6 +38,10 @@ class FileFinder
                 'app',
                 'resources',
             ]
+        );
+        $this->excludedDirectories = config(
+            'laravel-translatable-string-exporter.excluded-directories',
+            []
         );
         $this->patterns = config(
             'laravel-translatable-string-exporter.patterns',
@@ -55,9 +66,12 @@ class FileFinder
             $item = $path . DIRECTORY_SEPARATOR . $item;
         });
 
+        $excludedDirectories = $this->excludedDirectories;
+
         $finder = new Finder();
 
         $finder = $finder->in($directories);
+        $finder = $finder->exclude($excludedDirectories);
 
         foreach ($this->patterns as $pattern) {
             $finder->name($pattern);
