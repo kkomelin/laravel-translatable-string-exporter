@@ -7,10 +7,10 @@ class JSON
     /**
      * Convert an array/object to the properly formatted JSON string.
      *
-     * @param array $strings
+     * @param  array  $strings
      * @return string
      */
-    public static function jsonEncode($strings)
+    public static function jsonEncode(array $strings)
     {
         return json_encode($strings, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
@@ -18,10 +18,10 @@ class JSON
     /**
      * Convert a JSON string to an array.
      *
-     * @param string $string
+     * @param  string  $string
      * @return array
      */
-    public static function jsonDecode($string)
+    public static function jsonDecode(string $string)
     {
         return (array) json_decode($string);
     }

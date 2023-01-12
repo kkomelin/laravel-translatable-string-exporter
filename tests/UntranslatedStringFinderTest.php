@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
 class UntranslatedStringFinderTest extends BaseTestCase
@@ -18,7 +19,7 @@ class UntranslatedStringFinderTest extends BaseTestCase
         ])
             ->expectsOutput('Did not find ' . $language . '.json file. Use --export-first option.');
 
-        $command->assertExitCode(0);
+        $command->assertExitCode(Command::FAILURE);
     }
 
     public function testExportAndInspect()
@@ -54,6 +55,6 @@ class UntranslatedStringFinderTest extends BaseTestCase
             $command->expectsOutput($str);
         }
 
-        $command->assertExitCode(0);
+        $command->assertExitCode(Command::SUCCESS);
     }
 }

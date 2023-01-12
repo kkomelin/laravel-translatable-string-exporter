@@ -22,16 +22,18 @@ class CodeParser
 
     /**
      * Parser constructor.
+     *
+     * @return void
      */
     public function __construct()
     {
         $this->functions = config(
             'laravel-translatable-string-exporter.functions',
             [
-               '__',
-               '_t',
-               '@lang',
-           ]
+                '__',
+                '_t',
+                '@lang',
+            ]
         );
         $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
 
@@ -43,7 +45,7 @@ class CodeParser
     /**
      * Parse a file in order to find translatable strings.
      *
-     * @param SplFileInfo $file
+     * @param  \Symfony\Component\Finder\SplFileInfo  $file
      * @return array
      */
     public function parse(SplFileInfo $file)
@@ -70,7 +72,7 @@ class CodeParser
      * Without clean up: We\'re amazing!
      * With clean up: We're amazing!
      *
-     * @param array $strings
+     * @param  array  $strings
      * @return array
      */
     public function clean(array $strings)

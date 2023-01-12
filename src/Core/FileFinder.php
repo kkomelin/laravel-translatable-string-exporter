@@ -11,24 +11,26 @@ class FileFinder
      *
      * @var array
      */
-    protected $directories;
+    protected array $directories;
 
     /**
-    * Directories to exclude from search.
-    *
-    * @var array
-    */
-    protected $excludedDirectories;
+     * Directories to exclude from search.
+     *
+     * @var array
+     */
+    protected array $excludedDirectories;
 
     /**
      * File patterns to search for.
      *
      * @var array
      */
-    protected $patterns;
+    protected array $patterns;
 
     /**
      * Finder constructor.
+     *
+     * @return void
      */
     public function __construct()
     {
@@ -55,7 +57,7 @@ class FileFinder
     /**
      * Find all files that can contain translatable strings.
      *
-     * @return Finder|null
+     * @return \Symfony\Component\Finder\Finder|null
      */
     public function find()
     {
