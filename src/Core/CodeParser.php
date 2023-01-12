@@ -52,7 +52,7 @@ class CodeParser
     {
         $strings = [];
 
-        if (!preg_match_all($this->pattern, $file->getContents(), $matches)) {
+        if (! preg_match_all($this->pattern, $file->getContents(), $matches)) {
             return $this->clean($strings);
         }
 

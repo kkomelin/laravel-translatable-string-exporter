@@ -231,6 +231,6 @@ class Exporter
         // If the received translation is an array, the initial translation key is not full,
         // so we consider it wrong.
 
-        return isset($translations[$key]) && !is_array($translations[$key]);
+        return isset($translations[$key]) && ! is_array($translations[$key]);
     }
 }

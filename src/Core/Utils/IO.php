@@ -29,7 +29,7 @@ class IO
      */
     public static function read(string $path)
     {
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             return false;
         }
 
