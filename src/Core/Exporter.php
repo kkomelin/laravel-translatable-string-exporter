@@ -19,12 +19,14 @@ class Exporter
     /**
      * Extractor object.
      *
-     * @var StringExtractor
+     * @var \KKomelin\TranslatableStringExporter\Core\StringExtractor
      */
     private $extractor;
 
     /**
      * Parser constructor.
+     *
+     * @return void
      */
     public function __construct()
     {
@@ -34,10 +36,10 @@ class Exporter
     /**
      * Export translatable strings to the language file.
      *
-     * @param string $language
+     * @param  string  $language
      * @return void
      */
-    public function export($language)
+    public function export(string $language)
     {
         $language_path = IO::languageFilePath($language);
 
@@ -72,12 +74,12 @@ class Exporter
     /**
      * Merge two arrays of translations preserving existing translations and persistent strings.
      *
-     * @param array $existing_strings
-     * @param array $new_strings
-     * @param array $persistent_strings
+     * @param  array  $existing_strings
+     * @param  array  $new_strings
+     * @param  array  $persistent_strings
      * @return array
      */
-    protected function mergeStrings($new_strings, $existing_strings, $persistent_strings)
+    protected function mergeStrings(array $new_strings, array $existing_strings, array $persistent_strings)
     {
         $merged_strings = array_merge($new_strings, $existing_strings);
 
@@ -90,10 +92,10 @@ class Exporter
      * Sort the translation strings alphabetically by their original strings (keys)
      * if the corresponding option is enabled through the package config.
      *
-     * @param array $strings
+     * @param  array  $strings
      * @return array
      */
-    protected function sortIfEnabled($strings)
+    protected function sortIfEnabled(array $strings)
     {
         if (config('laravel-translatable-string-exporter.sort-keys', false)) {
             return Arr::sort($strings, function ($value, $key) {
@@ -107,11 +109,11 @@ class Exporter
     /**
      * Add keys from the persistent-strings file to new strings array.
      *
-     * @param array $new_strings
-     * @param array $persistent_strings
+     * @param  array  $new_strings
+     * @param  array  $persistent_strings
      * @return array
      */
-    protected function addPersistentStringsIfEnabled($new_strings, $persistent_strings)
+    protected function addPersistentStringsIfEnabled(array $new_strings, array $persistent_strings)
     {
         if (config('laravel-translatable-string-exporter.add-persistent-strings-to-translations', false)) {
             $new_strings = array_merge(
@@ -127,11 +129,11 @@ class Exporter
      * Exclude Laravel translation keys from the array
      * if they have corresponding translations in the given language.
      *
-     * @param array $translatable_strings
-     * @param string $language
+     * @param  array  $translatable_strings
+     * @param  string  $language
      * @return array|mixed
      */
-    protected function excludeTranslationKeysIfEnabled($translatable_strings, $language)
+    protected function excludeTranslationKeysIfEnabled(array $translatable_strings, string $language)
     {
         if (config('laravel-translatable-string-exporter.exclude-translation-keys', false)) {
             foreach ($translatable_strings as $key => $value) {
@@ -150,10 +152,10 @@ class Exporter
      * at the top of the translation file, then untranslated and translated strings
      * are sorted separately.
      *
-     * @param array $translatable_strings
+     * @param  array  $translatable_strings
      * @return array
      */
-    protected function advancedSortIfEnabled($translatable_strings)
+    protected function advancedSortIfEnabled(array $translatable_strings)
     {
         // If it's necessary to put untranslated strings at the top.
         if (config('laravel-translatable-string-exporter.put-untranslated-strings-at-the-top', false)) {
@@ -181,9 +183,9 @@ class Exporter
     /**
      * Filtering an array by its keys using a callback.
      *
-     * @param array $array
+     * @param  array  $array
      *  The array to iterate over.
-     * @param callable $callback
+     * @param  callable  $callback
      *  The callback function to use.
      *
      * @return array
@@ -198,11 +200,11 @@ class Exporter
      * Check if the given translatable string is a translation key and has a translation.
      * The translation keys are ignored if the corresponding option is set through the config.
      *
-     * @param string $key
-     * @param string $locale
+     * @param  string  $key
+     * @param  string  $locale
      * @return bool
      */
-    private function isTranslationKey($key, $locale)
+    private function isTranslationKey(string $key, string $locale)
     {
         $dot_position = strpos($key, '.');
 
@@ -229,6 +231,6 @@ class Exporter
         // If the received translation is an array, the initial translation key is not full,
         // so we consider it wrong.
 
-        return isset($translations[$key]) && ! is_array($translations[$key]);
+        return isset($translations[$key]) && !is_array($translations[$key]);
     }
 }

@@ -12,11 +12,11 @@ class IO
     /**
      * Write a string to a file.
      *
-     * @param string $content
-     * @param string $path
+     * @param  string  $content
+     * @param  string  $path
      * @return void
      */
-    public static function write($content, $path)
+    public static function write(string $content, string $path)
     {
         file_put_contents($path, $content);
     }
@@ -24,12 +24,12 @@ class IO
     /**
      * Read json file and convert it into an array of strings.
      *
-     * @param string $path
+     * @param  string  $path
      * @return string|bool
      */
-    public static function read($path)
+    public static function read(string $path)
     {
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             return false;
         }
 
@@ -39,10 +39,10 @@ class IO
     /**
      * Read existing translation file for the chosen language.
      *
-     * @param string $language_path
+     * @param  string  $language_path
      * @return array
      */
-    public static function readTranslationFile($language_path)
+    public static function readTranslationFile(string $language_path)
     {
         $content = self::read($language_path);
 
@@ -52,10 +52,10 @@ class IO
     /**
      * Get language file path.
      *
-     * @param string $language
+     * @param  string  $language
      * @return string
      */
-    public static function languageFilePath($language)
+    public static function languageFilePath(string $language)
     {
         return function_exists('lang_path') ? lang_path("$language.json") : resource_path("lang/$language.json");
     }

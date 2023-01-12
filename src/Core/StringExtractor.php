@@ -5,15 +5,20 @@ namespace KKomelin\TranslatableStringExporter\Core;
 class StringExtractor
 {
     /**
-     * @var FileFinder
+     * @var \KKomelin\TranslatableStringExporter\Core\FileFinder
      */
     private $finder;
 
     /**
-     * @var CodeParser
+     * @var \KKomelin\TranslatableStringExporter\Core\CodeParser
      */
     private $parser;
 
+    /**
+     * Creates a new StringExtractor instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->finder = new FileFinder();
@@ -40,7 +45,7 @@ class StringExtractor
     /**
      * Convert an array of extracted strings to an associative array where each string becomes key and value.
      *
-     * @param array $strings
+     * @param  array  $strings
      * @return array
      */
     protected function formatArray(array $strings)
