@@ -49,7 +49,7 @@ php artisan translatable:export es
 php artisan translatable:export es,bg,de
 ```
 
-The command with the `"es,bg,de"` parameter passed will create a `es.json`, `bg.json`, `de.json` files with translatable strings or update the existing files in the `lang/` folder of your project.
+The command with the `"es,bg,de"` parameter passed will create `es.json`, `bg.json`, `de.json` files with translatable strings or update the existing files in the `lang/` folder of your project.
 
 ### Find untranslated strings in a language file (command)
 
@@ -59,7 +59,7 @@ To inspect an existing language file (find untranslated strings), use this comma
 php artisan translatable:inspect-translations fr
 ```
 
-The `translatable:inspect-translations` commands only supports inspecting one language at a time.
+The command only supports inspecting one language at a time.
 
 To export translatable strings for a language and then inspect translations in it, use the following command:
 
