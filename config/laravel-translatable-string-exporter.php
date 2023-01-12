@@ -45,7 +45,7 @@ return [
     // in the given language.
     // This option allows correctly combine two translation approaches:
     // Laravel translation keys (PHP) and translatable strings (JSON).
-    'exclude-translation-keys' => true,
+    'exclude-translation-keys' => false,
 
     // Indicates whether you need to put untranslated strings
     // at the top of a translation file.
