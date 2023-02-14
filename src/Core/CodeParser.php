@@ -6,79 +6,111 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class CodeParser
 {
-    /**
-     * Translation function names.
-     *
-     * @var array
-     */
-    protected $functions;
+	/**
+	 * Translation function names.
+	 *
+	 * @var array
+	 */
+	protected $functions;
 
-    /**
-     * Translation function pattern.
-     *
-     * @var string
-     */
-    protected $pattern = '/([FUNCTIONS])\(\s*([\'"])(?P<string>(?:(?![^\\\]\2).)+.)\2\s*[\),]/u';
+	/**
+	 * Translation function pattern.
+	 *
+	 * @var string|array
+	 */
+	protected $pattern = '/([FUNCTIONS])\(\s*([\'"])(?P<string>(?:(?![^\\\]\2).)+.)\2\s*[\),]/u';
 
-    /**
-     * Parser constructor.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->functions = config(
-            'laravel-translatable-string-exporter.functions',
-            [
-                '__',
-                '_t',
-                '@lang',
-            ]
-        );
-        $this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
+	/**
+	 * Parser constructor.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->functions = config(
+			'laravel-translatable-string-exporter.functions',
+			[
+				'__',
+				'_t',
+				'@lang',
+			]
+		);
+		if (\Arr::isAssoc($this->functions)) {
+			$patterns = [];
+			foreach ($this->functions as $key => $value) {
+				if (\is_numeric($key)) {
+					$func     = $value;
+					$callable = null;
+				} else {
+					$func     = $key;
+					$callable = $value;
+				}
+				$patterns[str_replace('[FUNCTIONS]', $func, $this->pattern)] = $callable;
 
-        if (config('laravel-translatable-string-exporter.allow-newlines', false)) {
-            $this->pattern .= 's';
-        }
-    }
+				if (config('laravel-translatable-string-exporter.allow-newlines', false)) {
+					$patterns[$key] .= 's';
+				}
+			}
+			$this->pattern = $patterns;
+		} else {
+			$this->pattern = str_replace('[FUNCTIONS]', implode('|', $this->functions), $this->pattern);
 
-    /**
-     * Parse a file in order to find translatable strings.
-     *
-     * @param  \Symfony\Component\Finder\SplFileInfo  $file
-     * @return array
-     */
-    public function parse(SplFileInfo $file)
-    {
-        $strings = [];
+			if (config('laravel-translatable-string-exporter.allow-newlines', false)) {
+				$this->pattern .= 's';
+			}
+		}
+	}
 
-        if (! preg_match_all($this->pattern, $file->getContents(), $matches)) {
-            return $this->clean($strings);
-        }
+	/**
+	 * Parse a file in order to find translatable strings.
+	 *
+	 * @return array
+	 */
+	public function parse(SplFileInfo $file)
+	{
+		$strings = [];
 
-        foreach ($matches['string'] as $string) {
-            $strings[] = $string;
-        }
+		if (\is_array($this->pattern)) {
+			foreach ($this->pattern as $pattern => $func) {
+				preg_match_all($pattern, $file->getContents(), $matches);
 
-        // Remove duplicates.
-        $strings = array_unique($strings);
+				foreach ($matches['string'] as $string) {
+					$strings[] = is_callable($func) ? $func($string) : $string;
+				}
+			}
 
-        return $this->clean($strings);
-    }
+			// Remove duplicates.
+			$strings = array_unique($strings);
 
-    /**
-     * Provide extra clean up step
-     * Used for instances of {{ __('We\'re amazing!') }}
-     * Without clean up: We\'re amazing!
-     * With clean up: We're amazing!
-     *
-     * @param  array  $strings
-     * @return array
-     */
-    public function clean(array $strings)
-    {
-        return array_map(function ($string) {
-            return str_replace('\\\'', '\'', $string);
-        }, $strings);
-    }
+			return $this->clean($strings);
+		} else {
+			if (!preg_match_all($this->pattern, $file->getContents(), $matches)) {
+				return $this->clean($strings);
+			}
+
+			foreach ($matches['string'] as $string) {
+				$strings[] = $string;
+			}
+
+			// Remove duplicates.
+			$strings = array_unique($strings);
+
+			return $this->clean($strings);
+		}
+	}
+
+	/**
+	 * Provide extra clean up step
+	 * Used for instances of {{ __('We\'re amazing!') }}
+	 * Without clean up: We\'re amazing!
+	 * With clean up: We're amazing!
+	 *
+	 * @return array
+	 */
+	public function clean(array $strings)
+	{
+		return array_map(function ($string) {
+			return str_replace('\\\'', '\'', $string);
+		}, $strings);
+	}
 }
