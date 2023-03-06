@@ -78,7 +78,7 @@ class CodeParser
                 if (\is_null($func)) {
                     $strings[] = $string;
                 } elseif (\is_callable($func)) {
-                    $strings[] = $func($string);
+                    $strings[] = call_user_func($func, $string);
                 }
             }
         }
