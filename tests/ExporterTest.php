@@ -3,6 +3,7 @@
 namespace Tests;
 
 use KKomelin\TranslatableStringExporter\Core\Exporter;
+use Tests\__fixtures\classes\Transformer;
 
 class ExporterTest extends BaseTestCase
 {
@@ -194,7 +195,7 @@ EOD;
             pushGenericFeedback(__(
                 "This is some generic key with a :var1 and :var2 in it 1",
                 ["var1" => "variable", "var2" => "another variable"]
-            ));      
+            ));
 
             pushGenericFeedback(
                 __("This is some generic key with a :var1 and :var2 in it 2",
@@ -490,5 +491,51 @@ EOD;
 
         // Check that arrays are equivalent taking into account element order.
         $this->assertTrue($expected === $actual, 'Expected and actual arrays are not equivalent.');
+    }
+
+    public function testSettingAFunctionToTransform()
+    {
+        $this->app['config']->set('laravel-translatable-string-exporter.functions.aFunction', fn ($s) => \strtoupper(\str_replace(["-","_"], " ", $s)));
+
+        $this->removeJsonLanguageFiles();
+
+        $view = "{{ aFunction('text-to-translate') }}";
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'TEXT TO TRANSLATE' => 'TEXT TO TRANSLATE',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSettingACallableToTransform()
+    {
+        $this->app['config']->set('laravel-translatable-string-exporter.functions.staticMethod', [Transformer::class, 'staticMethod']);
+        $this->app['config']->set('laravel-translatable-string-exporter.functions.publicMethod', [new Transformer(), 'publicMethod']);
+
+        $this->removeJsonLanguageFiles();
+
+        $view = "{{ staticMethod('static-text-to-translate') }} {{ publicMethod('public-text-to-translate') }}";
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'STATIC TEXT TO TRANSLATE' => 'STATIC TEXT TO TRANSLATE',
+            'PUBLIC TEXT TO TRANSLATE' => 'PUBLIC TEXT TO TRANSLATE',
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
 }
