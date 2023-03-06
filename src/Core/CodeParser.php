@@ -64,7 +64,7 @@ class CodeParser
     /**
      * Parse a file in order to find translatable strings.
      *
-     * @param SplFileInfo $file
+     * @param  \Symfony\Component\Finder\SplFileInfo  $file
      * @return array
      */
     public function parse(SplFileInfo $file)
