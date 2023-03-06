@@ -104,4 +104,4 @@ In order for those, manually added, strings not to get removed the next time you
 
 ## License & Copyright
 
-[MIT](https://github.com/kkomelin/laravel-translatable-string-exporter/blob/master/LICENSE), (c) 2017 Konstantin Komelin and [contributors](https://github.com/kkomelin/laravel-translatable-string-exporter/graphs/contributors)
+[MIT](https://github.com/kkomelin/laravel-translatable-string-exporter/blob/master/LICENSE), (c) 2017-present Konstantin Komelin and [contributors](https://github.com/kkomelin/laravel-translatable-string-exporter/graphs/contributors)
