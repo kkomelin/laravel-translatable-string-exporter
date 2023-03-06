@@ -14,14 +14,14 @@ class CodeParser
     protected $functions;
 
     /**
-     * Translation function pattern.
+     * Base search pattern.
      *
      * @var string
      */
-    protected $regexp = '/([FUNCTIONS])\(\s*([\'"])(?P<string>(?:(?![^\\\]\2).)+.)\2\s*[\),]/u';
+    protected $basePattern = '/([FUNCTIONS])\(\s*([\'"])(?P<string>(?:(?![^\\\]\2).)+.)\2\s*[\),]/u';
 
     /**
-     * Translation function pattern.
+     * Function-specific search patterns.
      *
      * @var array
      */
@@ -52,7 +52,7 @@ class CodeParser
                 $callable = $value;
             }
 
-            $pattern_key = str_replace('[FUNCTIONS]', $func, $this->regexp);
+            $pattern_key = str_replace('[FUNCTIONS]', $func, $this->basePattern);
             if (config('laravel-translatable-string-exporter.allow-newlines', false)) {
                 $pattern_key .= 's';
             }
