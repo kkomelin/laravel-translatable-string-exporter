@@ -64,6 +64,7 @@ class CodeParser
     /**
      * Parse a file in order to find translatable strings.
      *
+     * @param SplFileInfo $file
      * @return array
      */
     public function parse(SplFileInfo $file)
@@ -94,6 +95,7 @@ class CodeParser
      * Without clean up: We\'re amazing!
      * With clean up: We're amazing!
      *
+     * @param array $strings
      * @return array
      */
     public function clean(array $strings)
