@@ -45,10 +45,10 @@ class CodeParser
 
         foreach ($this->functions as $key => $value) {
             if (\is_numeric($key)) {
-                $func     = $value;
+                $func = $value;
                 $callable = null;
             } else {
-                $func     = $key;
+                $func = $key;
                 $callable = $value;
             }
 
