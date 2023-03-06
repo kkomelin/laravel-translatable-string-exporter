@@ -23,7 +23,9 @@ return [
     // Indicates whether new lines are allowed in translations.
     'allow-newlines' => false,
 
-    // Translation function names.
+    // Translation function names or a custom transform function.
+    // Example of a custom transform function:
+    // 'transform' => fn ($s) => \strtoupper(\str_replace(["-","_"], " ", $s))
     // If your function name contains $ escape it using \$ .
     'functions'=> [
         '__',
