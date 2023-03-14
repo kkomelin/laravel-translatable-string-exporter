@@ -18,7 +18,7 @@ class IO
      */
     public static function write(string $content, string $path)
     {
-        file_put_contents($path, $content);
+        file_put_contents($path, $content . PHP_EOL);
     }
 
     /**
