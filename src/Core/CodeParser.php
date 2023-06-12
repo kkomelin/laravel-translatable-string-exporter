@@ -53,7 +53,7 @@ class CodeParser
             }
 
             $pattern_key = str_replace('[FUNCTIONS]', $func, $this->basePattern);
-            if (config('laravel-translatable-string-exporter.allow-newlines', false)) {
+            if (config('laravel-translatable-string-exporter.allow-newlines', true)) {
                 $pattern_key .= 's';
             }
 
@@ -75,6 +75,7 @@ class CodeParser
             preg_match_all($pattern, $file->getContents(), $matches);
 
             foreach ($matches['string'] as $string) {
+                $string = preg_replace('/\s+/', ' ', $string);
                 if (\is_null($func)) {
                     $strings[] = $string;
                 } elseif (\is_callable($func)) {
