@@ -314,6 +314,7 @@ EOD;
             'name1_en' => 'name1_es',
             'name2_en' => 'name2_es',
             'name3_en' => 'name3_es',
+            'MO' => 'MO_translated',
         ];
 
         $content = json_encode($existing_translations);
@@ -322,7 +323,7 @@ EOD;
 
         // 2. Create a file with the keys of any strings which should persist even if they are not contained in the views.
 
-        $persistentContent = json_encode(['name2_en']);
+        $persistentContent = json_encode(['name2_en', 'MO']);
         $this->writeToTranslationFile(Exporter::PERSISTENT_STRINGS_FILENAME_WO_EXT, $persistentContent);
 
         // 3. Create a test view only containing one of the non-persistent strings, and a new string.
@@ -341,6 +342,7 @@ EOD;
             'name1_en' => 'name1_es',
             'name2_en' => 'name2_es',
             'name4_en' => 'name4_en',
+            'MO' => 'MO_translated',
         ];
 
         $this->assertEquals($expected, $actual);
