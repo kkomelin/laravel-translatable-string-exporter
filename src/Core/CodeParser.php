@@ -40,6 +40,7 @@ class CodeParser
                 '__',
                 '_t',
                 '@lang',
+                'trans_choice',
             ]
         );
 
