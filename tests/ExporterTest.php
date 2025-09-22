@@ -322,6 +322,7 @@ EOD;
             'name1_en' => 'name1_es',
             'name2_en' => 'name2_es',
             'name3_en' => 'name3_es',
+            // Testing two-letter persistent strings.
             'MO' => 'MO_translated',
         ];
 
@@ -350,6 +351,7 @@ EOD;
             'name1_en' => 'name1_es',
             'name2_en' => 'name2_es',
             'name4_en' => 'name4_en',
+            // Testing two-letter persistent strings.
             'MO' => 'MO_translated',
         ];
 
