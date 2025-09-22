@@ -29,6 +29,7 @@ return [
     // If your function name contains $ escape it using \$ .
     'functions'=> [
         '__',
+        'trans_choice',
         '_t',
         '@lang',
     ],

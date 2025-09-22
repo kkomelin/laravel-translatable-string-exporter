@@ -64,9 +64,11 @@ class ExporterTest extends BaseTestCase
         $this->removeJsonLanguageFiles();
 
         $view = "{{ __('name__') }} " .
+            "{{ trans_choice('name_trans_choice|names_trans_choice', 1) }} " .
             "@lang('name_lang') " .
             "{{ _t('name_t') }} " .
             "{{ __('name__space_end' ) }} " .
+            "{{ trans_choice( 'name_trans_choice_space|names_trans_choice_space' , 2) }} " .
             "@lang( 'name_lang_space_start') " .
             "{{ _t( 'name_t_space_both' ) }} " .
             "{{ _t(  'name_t_double_space'  ) }}";
@@ -81,9 +83,11 @@ class ExporterTest extends BaseTestCase
 
         $expected = [
             'name__' => 'name__',
+            'name_trans_choice|names_trans_choice' => 'name_trans_choice|names_trans_choice',
             'name_lang' => 'name_lang',
             'name_t' => 'name_t',
             'name__space_end' => 'name__space_end',
+            'name_trans_choice_space|names_trans_choice_space' => 'name_trans_choice_space|names_trans_choice_space',
             'name_lang_space_start' => 'name_lang_space_start',
             'name_t_space_both' => 'name_t_space_both',
             'name_t_double_space' => 'name_t_double_space',
@@ -99,6 +103,8 @@ class ExporterTest extends BaseTestCase
         $view = <<<EOD
 {{ __("He said \"WOW\".") }}
 {{ __('We\'re amazing!') }}
+{{ trans_choice("He found \"one item\"|They found \"many items\"", 1) }}
+{{ trans_choice('I\'m \"one\"|We\'re \"many\"', 2) }}
 @lang("You're pretty great!")
 @lang("You\"re pretty great!")
 {{ __("Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.") }}
@@ -115,6 +121,8 @@ EOD;
         $expected = [
             'He said \"WOW\".' => 'He said \"WOW\".',
             'We\'re amazing!' => 'We\'re amazing!',
+            'He found \"one item\"|They found \"many items\"' => 'He found \"one item\"|They found \"many items\"',
+            'I\'m \"one\"|We\'re \"many\"' => 'I\'m \"one\"|We\'re \"many\"',
             "You're pretty great!" => "You're pretty great!",
             'You\"re pretty great!' => 'You\"re pretty great!',
             'Therefore, we automatically look for columns named something like \"Last name\", \"First name\", \"E-mail\" etc.' =>

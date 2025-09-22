@@ -27,6 +27,7 @@ class BaseTestCase extends TestCase
 
         $app['config']->set('laravel-translatable-string-exporter.functions', [
             '__',
+            'trans_choice',
             '_t',
             '@lang',
         ]);
