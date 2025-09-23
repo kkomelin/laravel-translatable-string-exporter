@@ -550,4 +550,50 @@ EOD;
 
         $this->assertEquals($expected, $actual);
     }
+
+    public function testNamedParameterSyntax()
+    {
+        $this->removeJsonLanguageFiles();
+
+        $view = "{{ trans_choice(key: 'One item|Many items', number: 1) }} " .
+            "{{ __(key: 'Simple message') }} " .
+            "{{ trans_choice(\n    key: 'Single line|Multiple lines',\n    number: 5,\n    replace: []\n) }} " .
+            "{{ __(key: 'Another message', replace: ['name' => 'John']) }}";
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'One item|Many items' => 'One item|Many items',
+            'Simple message' => 'Simple message',
+            'Single line|Multiple lines' => 'Single line|Multiple lines',
+            'Another message' => 'Another message',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testExactNamedParameterPattern()
+    {
+        $this->removeJsonLanguageFiles();
+
+        $view = "{{ trans_choice(\n  key: 'Some string|Some strings',\n  number: 123,\n  replace: [],\n  locale: \n) }}";
+
+        $this->createTestView($view);
+
+        $this->artisan('translatable:export', ['lang' => 'es'])
+            ->expectsOutput('Translatable strings have been extracted and written to the es.json file.')
+            ->assertExitCode(0);
+
+        $actual = $this->getTranslationFileContent('es');
+        $expected = [
+            'Some string|Some strings' => 'Some string|Some strings',
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
 }
