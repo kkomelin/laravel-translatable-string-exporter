@@ -24,6 +24,9 @@ jobs:
           - laravel: 12.*
             testbench: ^10.0
             larastan: ^3.0
+          - laravel: 13.*
+            testbench: ^11.0
+            larastan: ^3.0
         exclude:
           - laravel: 13.*
             php: '8.2'
@@ -43,7 +46,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nunomaduro/larastan:${{ matrix.larastan }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "larastan/larastan:${{ matrix.larastan }}" --no-interaction --no-update
           composer update --prefer-dist --no-interaction
 
       - name: Execute tests
