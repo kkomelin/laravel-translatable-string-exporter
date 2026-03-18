@@ -14,6 +14,7 @@ Translatable String Exporter is aimed to collect all translatable strings of an 
 | `<=1.15.1` | `5.6`        |
 | `>1.15.1`  | `^7.2\|^8.0` |
 | `>1.18.0`  | `^8.0`       |
+| `>1.25.0`  | `^8.2`       |
 
 _Even though we drop support for PHP versions in minor releases, Composer ensures that users with previous versions of PHP don't get not-yet-supported PHP code._
 
