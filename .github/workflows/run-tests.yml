@@ -16,11 +16,8 @@ jobs:
       fail-fast: true
       matrix:
         php: ['8.2', '8.3', '8.4', '8.5']
-        laravel: ['11.*', '12.*', '13.*']
+        laravel: ['12.*', '13.*']
         include:
-          - laravel: 11.*
-            testbench: ^9.0
-            larastan: ^2.0
           - laravel: 12.*
             testbench: ^10.0
             larastan: ^3.0
