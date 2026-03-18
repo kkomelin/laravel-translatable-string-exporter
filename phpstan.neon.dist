@@ -3,4 +3,3 @@ parameters:
     paths:
         - src
         - config
-    checkMissingIterableValueType: false
