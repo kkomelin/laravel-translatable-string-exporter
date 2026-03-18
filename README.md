@@ -1,7 +1,7 @@
 # Translatable String Exporter for Laravel
 
 [![Tests Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/run-tests.yml)
-[![PHPStan Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml.yml)
+[![PHPStan Status Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/phpstan.yml)
 [![Code Styles Check Badge](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/kkomelin/laravel-translatable-string-exporter/actions/workflows/php-cs-fixer.yml)
 
 You can use `__('Translate me')` or `@lang('Translate me')` with translations in JSON files to translate strings.
